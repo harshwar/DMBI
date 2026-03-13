@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASP.NET Practicals — Exam Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --border: #2a2a3a;
+  --accent: #7c6ff7;
+  --accent2: #f7c06f;
+  --accent3: #6ff7c0;
+  --accent4: #f76f9a;
+  --text: #e8e8f0;
+  --muted: #6b6b80;
+  --code-bg: #0d0d16;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: linear-gradient(135deg, #0d0d1a 0%, #141428 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+}
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.header h1 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; background: linear-gradient(90deg, var(--accent), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header p { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+.exam-badge { background: var(--accent4); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; letter-spacing: 1px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+/* ─── LAYOUT ─── */
+.layout { display: flex; max-width: 1200px; margin: 0 auto; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 30px 20px;
+  position: sticky;
+  top: 89px;
+  height: calc(100vh - 89px);
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.sidebar-title { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px; cursor: pointer;
+  margin-bottom: 4px; transition: all 0.2s;
+  border: 1px solid transparent;
+  font-size: 0.85rem;
+}
+.nav-item:hover { background: var(--surface2); border-color: var(--border); }
+.nav-item.active { background: rgba(124,111,247,0.15); border-color: rgba(124,111,247,0.4); color: var(--accent); }
+.nav-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: var(--surface2); padding: 2px 7px; border-radius: 10px; color: var(--muted); margin-left: auto; flex-shrink: 0; }
+.nav-item.active .nav-badge { background: rgba(124,111,247,0.2); color: var(--accent); }
+
+.difficulty-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.easy { background: var(--accent3); }
+.medium { background: var(--accent2); }
+.hard { background: var(--accent4); }
+
+.sidebar-legend { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
+
+/* ─── MAIN CONTENT ─── */
+.main { flex: 1; padding: 40px; overflow: hidden; }
+
+.practical-section { display: none; animation: fadeIn 0.3s ease; }
+.practical-section.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── SECTION HEADER ─── */
+.section-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 32px; gap: 20px; flex-wrap: wrap;
+}
+.section-title-group {}
+.q-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 1px; margin-bottom: 6px; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; line-height: 1.2; }
+.section-subtitle { color: var(--muted); margin-top: 6px; font-size: 0.9rem; max-width: 600px; }
+.diff-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; flex-shrink: 0; margin-top: 4px; }
+.diff-easy { background: rgba(111,247,192,0.15); color: var(--accent3); border: 1px solid rgba(111,247,192,0.3); }
+.diff-medium { background: rgba(247,192,111,0.15); color: var(--accent2); border: 1px solid rgba(247,192,111,0.3); }
+.diff-hard { background: rgba(247,111,154,0.15); color: var(--accent4); border: 1px solid rgba(247,111,154,0.3); }
+
+/* ─── TABS ─── */
+.tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--surface); padding: 4px; border-radius: 10px; border: 1px solid var(--border); width: fit-content; flex-wrap: wrap; }
+.tab { padding: 7px 16px; border-radius: 7px; cursor: pointer; font-size: 0.82rem; font-weight: 500; color: var(--muted); transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--accent); color: #fff; font-weight: 600; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ─── STEP GUIDE ─── */
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex; gap: 20px;
+  padding-bottom: 28px;
+  position: relative;
+}
+.step:not(:last-child)::before {
+  content: ''; position: absolute; left: 18px; top: 38px;
+  width: 2px; bottom: 0;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  opacity: 0.3;
+}
+.step-num {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(124,111,247,0.15); border: 2px solid rgba(124,111,247,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;
+  color: var(--accent);
+}
+.step-body {}
+.step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.step-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+.step-note {
+  margin-top: 10px; background: rgba(247,192,111,0.08); border-left: 3px solid var(--accent2);
+  padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.82rem; color: var(--accent2);
+}
+.step-note code { background: rgba(247,192,111,0.15); padding: 1px 5px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; }
+.step-code {
+  margin-top: 10px; background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; color: #c8c8e0; overflow-x: auto; white-space: pre;
+  line-height: 1.7;
+}
+
+/* ─── CODE BLOCKS ─── */
+.code-file { margin-bottom: 20px; }
+.code-file-header {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-bottom: none; border-radius: 8px 8px 0 0;
+  padding: 10px 16px;
+}
+.code-file-name { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent2); }
+.copy-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  padding: 4px 10px; border-radius: 5px; font-size: 0.72rem; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; transition: all 0.2s;
+}
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn.copied { border-color: var(--accent3); color: var(--accent3); }
+
+pre.code-block {
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 0 0 8px 8px; padding: 20px; margin: 0;
+  overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; line-height: 1.8; color: #c8c8e0;
+  white-space: pre;
+}
+
+/* Syntax highlight */
+.kw { color: #c084fc; }
+.str { color: #86efac; }
+.cm { color: #4b5563; font-style: italic; }
+.fn { color: #67e8f9; }
+.num { color: #fbbf24; }
+.tag { color: #f87171; }
+.attr { color: #fbbf24; }
+.val { color: #86efac; }
+.type { color: #a5f3fc; }
+
+/* ─── MEMORY CARDS ─── */
+.memory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.memory-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; cursor: pointer;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.memory-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(124,111,247,0.05), transparent); opacity: 0; transition: opacity 0.3s; }
+.memory-card:hover { border-color: rgba(124,111,247,0.4); transform: translateY(-2px); }
+.memory-card:hover::before { opacity: 1; }
+.card-q { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+.card-front { font-weight: 600; font-size: 0.9rem; }
+.card-back { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.card-back code { background: var(--surface2); padding: 1px 5px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.8rem; }
+.memory-card.flipped .card-back { display: block; }
+.memory-card.flipped { border-color: rgba(111,247,192,0.4); }
+.flip-hint { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 4px; }
+
+/* ─── QUIZ ─── */
+.quiz-question { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.quiz-q-text { font-weight: 600; margin-bottom: 16px; font-size: 0.95rem; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option {
+  padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border);
+  cursor: pointer; font-size: 0.875rem; transition: all 0.2s;
+  background: var(--surface2);
+}
+.quiz-option:hover { border-color: rgba(124,111,247,0.4); background: rgba(124,111,247,0.08); }
+.quiz-option.correct { border-color: var(--accent3); background: rgba(111,247,192,0.1); color: var(--accent3); }
+.quiz-option.wrong { border-color: var(--accent4); background: rgba(247,111,154,0.1); color: var(--accent4); }
+.quiz-option.disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; display: none; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: rgba(111,247,192,0.1); border: 1px solid rgba(111,247,192,0.3); color: var(--accent3); }
+.quiz-feedback.wrong { background: rgba(247,111,154,0.1); border: 1px solid rgba(247,111,154,0.3); color: var(--accent4); }
+
+/* ─── CHEAT SHEET ─── */
+.cheat-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.cheat-table th { background: var(--surface2); padding: 12px 16px; text-align: left; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--border); }
+.cheat-table td { padding: 12px 16px; border-bottom: 1px solid rgba(42,42,58,0.5); vertical-align: top; }
+.cheat-table tr:hover td { background: var(--surface); }
+.cheat-table code { font-family: 'JetBrains Mono', monospace; background: var(--surface2); padding: 2px 6px; border-radius: 4px; color: var(--accent3); font-size: 0.78rem; }
+
+/* ─── OVERVIEW CARDS ─── */
+.overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.overview-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px; cursor: pointer; transition: all 0.2s;
+}
+.overview-card:hover { border-color: rgba(124,111,247,0.4); transform: translateY(-2px); }
+.ov-q { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); margin-bottom: 6px; }
+.ov-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+.ov-diff { font-size: 0.75rem; }
+
+/* ─── INFO BOX ─── */
+.info-box { background: rgba(124,111,247,0.08); border: 1px solid rgba(124,111,247,0.25); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.875rem; }
+.info-box strong { color: var(--accent); }
+.warn-box { background: rgba(247,192,111,0.08); border: 1px solid rgba(247,192,111,0.25); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.875rem; }
+.warn-box strong { color: var(--accent2); }
+
+/* ─── PROGRESS ─── */
+.progress-bar-wrap { background: var(--surface2); border-radius: 10px; height: 6px; margin-bottom: 4px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent3)); border-radius: 10px; transition: width 0.5s; }
+.progress-label { font-size: 0.75rem; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 20px; }
+
+/* ─── HAMBURGER BUTTON ─── */
+.hamburger {
+  display: none;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ─── MOBILE DRAWER OVERLAY ─── */
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  backdrop-filter: blur(4px);
+}
+.drawer-overlay.open { display: block; }
+
+/* ─── MOBILE SIDEBAR DRAWER ─── */
+.sidebar-drawer {
+  position: fixed;
+  top: 0; left: -300px;
+  width: 280px;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  z-index: 300;
+  padding: 24px 16px;
+  overflow-y: auto;
+  transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.sidebar-drawer.open { left: 0; }
+.drawer-close {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.drawer-close-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--muted); padding: 6px 10px; border-radius: 6px;
+  cursor: pointer; font-size: 1rem;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 800px) {
+  /* Header */
+  .header { padding: 16px 20px; position: sticky; top: 0; z-index: 150; }
+  .header h1 { font-size: 1.1rem; }
+  .header p { display: none; }
+  .hamburger { display: flex; align-items: center; }
+  .exam-badge { font-size: 0.62rem; padding: 4px 9px; }
+
+  /* Hide desktop sidebar */
+  .layout { display: block; }
+  .sidebar { display: none; }
+
+  /* Main */
+  .main { padding: 20px 16px 100px 16px; }
+  .section-title { font-size: 1.2rem; }
+  .section-subtitle { font-size: 0.82rem; }
+
+  /* Section header stack on mobile */
+  .section-header { flex-direction: column; gap: 10px; margin-bottom: 20px; }
+
+  /* Tabs scroll horizontally */
+  .tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex-shrink: 0; padding: 8px 14px; font-size: 0.8rem; }
+
+  /* Code blocks */
+  pre.code-block { font-size: 0.72rem; padding: 14px; }
+  .step-code { font-size: 0.72rem; padding: 12px; }
+  .code-file-name { font-size: 0.72rem; }
+
+  /* Memory cards single column */
+  .memory-grid { grid-template-columns: 1fr; }
+  .memory-card { padding: 16px; }
+
+  /* Overview grid 2 col */
+  .overview-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .overview-card { padding: 14px; }
+  .ov-title { font-size: 0.82rem; }
+
+  /* Steps */
+  .step { gap: 14px; }
+  .step-num { width: 32px; height: 32px; font-size: 0.72rem; }
+  .step-title { font-size: 0.88rem; }
+  .step-desc { font-size: 0.82rem; }
+
+  /* Quiz */
+  .quiz-option { padding: 12px 14px; font-size: 0.85rem; }
+
+  /* Cheat table — make scrollable */
+  .cheat-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cheat-table { min-width: 480px; font-size: 0.78rem; }
+  .cheat-table th, .cheat-table td { padding: 10px 12px; }
+
+  /* Info/warn boxes */
+  .info-box, .warn-box { font-size: 0.82rem; padding: 12px 14px; }
+}
+
+@media (max-width: 400px) {
+  .overview-grid { grid-template-columns: 1fr; }
+  .main { padding: 16px 12px 100px 12px; }
+}
+
+/* ─── BOTTOM NAV (mobile only) ─── */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  z-index: 150;
+  padding: 8px 4px;
+  gap: 2px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.bottom-nav::-webkit-scrollbar { display: none; }
+.bnav-item {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 6px 10px; border-radius: 8px; cursor: pointer;
+  flex-shrink: 0; min-width: 60px; transition: all 0.15s;
+  gap: 3px;
+}
+.bnav-item:active { background: var(--surface2); }
+.bnav-item.active { background: rgba(124,111,247,0.15); }
+.bnav-dot { width: 6px; height: 6px; border-radius: 50%; }
+.bnav-label { font-size: 0.58rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+.bnav-item.active .bnav-label { color: var(--accent); }
+
+@media (max-width: 800px) {
+  .bottom-nav { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <button class="hamburger" onclick="openDrawer()">☰</button>
+    <div>
+      <h1>ASP.NET Practicals — Study Guide</h1>
+      <p>Interactive revision for Visual Studio · All 8 Practicals</p>
+    </div>
+    <span class="exam-badge">⚡ EXAM TOMORROW</span>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-title">Practicals</div>
+  <div class="nav-item active" onclick="showSection('overview')">
+    <span>🏠</span> Overview
+    <span class="nav-badge">start</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q1')">
+    <span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints
+    <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q2')">
+    <span class="difficulty-dot medium"></span> Q2 — Phone Book
+    <span class="nav-badge">med</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q2b')">
+    <span class="difficulty-dot easy"></span> Q2b — Pythagoras
+    <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q3')">
+    <span class="difficulty-dot easy"></span> Q3 — Fibonacci etc.
+    <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q5')">
+    <span class="difficulty-dot medium"></span> Q5 — SQL CRUD
+    <span class="nav-badge">med</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q6')">
+    <span class="difficulty-dot easy"></span> Q6 — AngularJS SPA
+    <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q7')">
+    <span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD
+    <span class="nav-badge">hard</span>
+  </div>
+  <div class="nav-item" onclick="showSection('q8')">
+    <span class="difficulty-dot easy"></span> Q8 — Flask App
+    <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" onclick="showSection('cheatsheet')">
+    <span>📋</span> Cheat Sheet
+    <span class="nav-badge">key</span>
+  </div>
+
+  <div class="sidebar-legend">
+    <div class="sidebar-title">Difficulty</div>
+    <div class="legend-item"><span class="difficulty-dot easy"></span> Easy</div>
+    <div class="legend-item"><span class="difficulty-dot medium"></span> Medium</div>
+    <div class="legend-item"><span class="difficulty-dot hard"></span> Hard</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ═══ OVERVIEW ═══ -->
+<div id="overview" class="practical-section active">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">START HERE</div>
+      <div class="section-title">Your Exam Survival Plan</div>
+      <div class="section-subtitle">8 practicals, 2 questions in exam. Here's what to focus on.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Strategy:</strong> You'll get 2 questions. Master the SQL CRUD pattern (Q2 + Q5) first — it's the most testable. Everything else is variations of the same skeleton.
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-card" onclick="showSection('q1')">
+      <div class="ov-q">Q1</div>
+      <div class="ov-title">Product of 4 Integers</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — 15 min to learn</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q2')">
+      <div class="ov-q">Q2</div>
+      <div class="ov-title">Phone Book + SQL</div>
+      <div class="ov-diff" style="color:var(--accent2)">● Medium — Core pattern</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q2b')">
+      <div class="ov-q">Q2b</div>
+      <div class="ov-title">Pythagoras Theorem</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — Just Math.Sqrt</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q3')">
+      <div class="ov-q">Q3</div>
+      <div class="ov-title">Fibonacci, Prime etc.</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — Logic snippets</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q5')">
+      <div class="ov-q">Q5</div>
+      <div class="ov-title">Full SQL CRUD</div>
+      <div class="ov-diff" style="color:var(--accent2)">● Medium — Must know</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q6')">
+      <div class="ov-q">Q6</div>
+      <div class="ov-title">AngularJS SPA</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — ng-model magic</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q7')">
+      <div class="ov-q">Q7</div>
+      <div class="ov-title">MongoDB CRUD</div>
+      <div class="ov-diff" style="color:var(--accent4)">● Hard — Most complex</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q8')">
+      <div class="ov-q">Q8</div>
+      <div class="ov-title">Flask (Python)</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — Simplest code</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>The ONE pattern to memorize cold:</strong> SqlConnection → SqlCommand → Parameters.AddWithValue → con.Open() → ExecuteNonQuery() → con.Close(). This appears in Q2 and Q5.
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Study Q2 (Phone Book) first</div>
+        <div class="step-desc">It teaches you INSERT + SELECT with SQL — the foundation for Q5. Once you know this, Q5 just adds UPDATE and DELETE.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Then study Q5 (Full CRUD)</div>
+        <div class="step-desc">The GridView RowUpdating/RowDeleting events are the tricky parts. Understand the DataKeys pattern.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Quick-read Q1, Q3, Q6, Q8</div>
+        <div class="step-desc">These are fast wins. If one of these comes up, you should be done in 20 minutes. Use the memory cards for these.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Skim Q7 (MongoDB)</div>
+        <div class="step-desc">Understand the MongoHelper class concept. Don't try to memorize every BSON attribute — know the structure.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q1 ═══ -->
+<div id="q1" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 1</div>
+      <div class="section-title">Product of 4 Integers</div>
+      <div class="section-subtitle">TextBox inputs → button click → multiply → display result</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q1-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q1-code')">Full Code</div>
+    <div class="tab" onclick="switchTab(this, 'q1-memory')">Memory Cards</div>
+    <div class="tab" onclick="switchTab(this, 'q1-quiz')">Quick Quiz</div>
+  </div>
+
+  <div id="q1-steps" class="tab-content active">
+    <div class="info-box"><strong>Core idea:</strong> 4 TextBoxes + 1 Button. On click, parse all 4 as int, multiply, show result with Response.Write.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open Visual Studio → New Project</div><div class="step-desc">File → New → Project → ASP.NET Web Application (.NET Framework) → Name it → Select "Web Forms" template → OK.</div><div class="step-note">Use <code>WebForms</code> not MVC. Make sure .NET Framework is selected, not .NET Core.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Open About.aspx</div><div class="step-desc">In <strong>Solution Explorer</strong> (right panel) → double-click <code>About.aspx</code>. Switch to <strong>Source view</strong> using the tabs at the bottom of the editor (Source | Split | Design). You'll type code in Source view.</div><div class="step-note">🖱️ <strong>VS UI tip:</strong> You can also switch to <strong>Design view</strong> and <strong>drag controls from the Toolbox</strong> (View → Toolbox, or Ctrl+Alt+X) directly onto the page. Drag a <code>TextBox</code>, drop it on the page — VS writes the tag for you automatically.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Add 4 TextBoxes with Validators</div><div class="step-desc">Inside &lt;main&gt;, add an asp:TextBox and an asp:RegularExpressionValidator for each input. The validator checks that only digits are entered.</div><div class="step-code">&lt;asp:TextBox ID="inte1" runat="server" /&gt;
+&lt;asp:RegularExpressionValidator 
+   ControlToValidate="inte1" 
+   runat="server" 
+   ErrorMessage="Enter numbers only" 
+   ValidationExpression="^\d+$" 
+   ForeColor="Red" /&gt;&lt;br /&gt;</div><div class="step-note">🖱️ <strong>Toolbox drag tip:</strong> In Design view, open Toolbox → expand <em>Standard</em> → drag <code>TextBox</code> onto page. Then expand <em>Validation</em> → drag <code>RegularExpressionValidator</code> next to it. Set properties in the <strong>Properties panel</strong> (bottom-right, F4 to open) instead of typing attributes manually. Repeat x4 with IDs: <code>inte1</code>, <code>inte2</code>, <code>inte3</code>, <code>inte4</code>.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Add the Submit Button</div><div class="step-desc">The OnClick wires it to the C# method.</div><div class="step-code">&lt;asp:Button ID="BtnSubmit" Text="Submit" runat="server" OnClick="BtnSubmit_Click" /&gt;</div><div class="step-note">🖱️ <strong>Shortcut:</strong> In Design view, drag a <code>Button</code> from Toolbox → Standard onto the page. Then <strong>double-click the button</strong> in Design view — VS automatically creates the <code>BtnSubmit_Click</code> method in the code-behind and wires the OnClick for you.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Write the C# Logic in About.aspx.cs</div><div class="step-desc">Click the tab for <code>About.aspx.cs</code> or press F7 to jump from the ASPX to its code-behind. Write the button click logic here.</div><div class="step-code">protected void BtnSubmit_Click(object sender, EventArgs e)
+{
+    try {
+        int n1 = int.Parse(inte1.Text);
+        int n2 = int.Parse(inte2.Text);
+        int n3 = int.Parse(inte3.Text);
+        int n4 = int.Parse(inte4.Text);
+        int result = n1 * n2 * n3 * n4;
+        Response.Write("Product = " + result);
+    }
+    catch { Response.Write("Error occurred"); }
+}</div><div class="step-note">⌨️ <strong>F7</strong> = jump from .aspx to .aspx.cs. <strong>Shift+F7</strong> = jump back to the designer.</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Run with F5</div><div class="step-desc">Press <strong>F5</strong> or click the green ▶ play button in the toolbar. Browser opens → navigate to the About page → enter 4 numbers → click Submit → see result.</div><div class="step-note">If you see a build error, check that the namespace in .aspx.cs matches your project name exactly.</div></div></div>
+    </div>
+  </div>
+
+  <div id="q1-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">About.aspx (inside asp:Content)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="tag">&lt;asp:TextBox</span> <span class="attr">ID</span>=<span class="val">"inte1"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;asp:RegularExpressionValidator</span> <span class="attr">ControlToValidate</span>=<span class="val">"inte1"</span> <span class="attr">runat</span>=<span class="val">"server"</span>
+  <span class="attr">ErrorMessage</span>=<span class="val">"Enter numbers only"</span> <span class="attr">ValidationExpression</span>=<span class="val">"^\d+$"</span> <span class="attr">ForeColor</span>=<span class="val">"Red"</span> <span class="tag">/&gt;</span><span class="tag">&lt;br /&gt;</span>
+<span class="cm">&lt;!-- Repeat x4 with inte2, inte3, inte4 --&gt;</span>
+
+<span class="tag">&lt;asp:Button</span> <span class="attr">ID</span>=<span class="val">"BtnSubmit"</span> <span class="attr">Text</span>=<span class="val">"Submit"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">OnClick</span>=<span class="val">"BtnSubmit_Click"</span> <span class="tag">/&gt;</span></pre>
+    </div>
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">About.aspx.cs</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">using</span> System;
+<span class="kw">using</span> System.Web.UI;
+
+<span class="kw">namespace</span> WebApplication10
+{
+    <span class="kw">public partial class</span> <span class="type">About</span> : <span class="type">Page</span>
+    {
+        <span class="kw">protected void</span> <span class="fn">BtnSubmit_Click</span>(<span class="kw">object</span> sender, <span class="type">EventArgs</span> e)
+        {
+            <span class="kw">try</span>
+            {
+                <span class="kw">int</span> n1 = <span class="kw">int</span>.<span class="fn">Parse</span>(inte1.Text);
+                <span class="kw">int</span> n2 = <span class="kw">int</span>.<span class="fn">Parse</span>(inte2.Text);
+                <span class="kw">int</span> n3 = <span class="kw">int</span>.<span class="fn">Parse</span>(inte3.Text);
+                <span class="kw">int</span> n4 = <span class="kw">int</span>.<span class="fn">Parse</span>(inte4.Text);
+                <span class="kw">int</span> result = n1 * n2 * n3 * n4;
+                Response.<span class="fn">Write</span>(<span class="str">"Product = "</span> + result);
+            }
+            <span class="kw">catch</span> { Response.<span class="fn">Write</span>(<span class="str">"Error occurred"</span>); }
+        }
+    }
+}</pre>
+    </div>
+  </div>
+
+  <div id="q1-memory" class="tab-content">
+    <p class="flip-hint" style="color:var(--muted);font-size:0.82rem;margin-bottom:16px">👆 Click any card to reveal the answer</p>
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q1 · Concept</div><div class="card-front">What attribute connects a Button to a C# method?</div><div class="card-back"><code>OnClick="BtnSubmit_Click"</code> — this is the event handler attribute on asp:Button</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q1 · Concept</div><div class="card-front">How do you convert TextBox text to an integer?</div><div class="card-back"><code>int.Parse(textBox.Text)</code> — wrap in try-catch in case it's not a valid number</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q1 · Concept</div><div class="card-front">What does RegularExpressionValidator ValidationExpression "^\d+$" mean?</div><div class="card-back">Only digits (0-9), one or more. ^ = start, \d = digit, + = one or more, $ = end. No letters or symbols allowed.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q1 · Concept</div><div class="card-front">How do you display output without a Label control?</div><div class="card-back"><code>Response.Write("text")</code> — writes directly to the HTML response. Simple but appears at top of page.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q1 · Concept</div><div class="card-front">What does runat="server" do?</div><div class="card-back">It tells ASP.NET to process this tag on the server side, making it accessible as a C# object in code-behind.</div></div>
+    </div>
+  </div>
+
+  <div id="q1-quiz" class="tab-content">
+    <div class="quiz-question">
+      <div class="quiz-q-text">1. Which method safely converts text to int without throwing an exception?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="answerQuiz(this, false)">int.Convert(text)</div>
+        <div class="quiz-option" onclick="answerQuiz(this, true)">int.TryParse(text, out result)</div>
+        <div class="quiz-option" onclick="answerQuiz(this, false)">int.Parse(text)</div>
+        <div class="quiz-option" onclick="answerQuiz(this, false)">Convert.ToInt(text)</div>
+      </div>
+      <div class="quiz-feedback">int.TryParse returns false if it fails instead of throwing an exception. int.Parse throws an exception on invalid input.</div>
+    </div>
+    <div class="quiz-question">
+      <div class="quiz-q-text">2. What attribute on asp:RegularExpressionValidator links it to an input field?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="answerQuiz(this, false)">InputID</div>
+        <div class="quiz-option" onclick="answerQuiz(this, true)">ControlToValidate</div>
+        <div class="quiz-option" onclick="answerQuiz(this, false)">ValidateControl</div>
+        <div class="quiz-option" onclick="answerQuiz(this, false)">LinkedControl</div>
+      </div>
+      <div class="quiz-feedback">ControlToValidate="inte1" tells the validator which TextBox ID to watch.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q2 ═══ -->
+<div id="q2" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 2</div>
+      <div class="section-title">Phone Book with SQL</div>
+      <div class="section-subtitle">INSERT + SELECT with SqlConnection — the core pattern for the exam</div>
+    </div>
+    <span class="diff-badge diff-medium">MEDIUM</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q2-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q2-code')">Full Code</div>
+    <div class="tab" onclick="switchTab(this, 'q2-memory')">Memory Cards</div>
+  </div>
+
+  <div id="q2-steps" class="tab-content active">
+    <div class="warn-box"><strong>This is the most important pattern to know.</strong> SqlConnection → SqlCommand → Parameters → Open → Execute → Close. Memorize this sequence.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Create the Database in SQL Server</div><div class="step-desc">Open <strong>SQL Server Management Studio (SSMS)</strong>. In the Connect dialog, type <code>(localdb)\MSSQLLocalDB</code> as the server name → click Connect. In Object Explorer (left panel), right-click <em>Databases</em> → <em>New Database</em> → name it <code>mydb</code> → OK. Then open a New Query and run:</div><div class="step-code">CREATE DATABASE mydb;
+USE mydb;
+CREATE TABLE contacts (
+    id INT PRIMARY KEY IDENTITY,
+    name NVARCHAR(100),
+    phonenumber NVARCHAR(15)
+);</div><div class="step-note">🖱️ <strong>SSMS UI tip:</strong> After running the query, right-click <em>Tables</em> under mydb in Object Explorer → <em>Refresh</em> to see your new table appear. You can right-click the table → <em>Select Top 1000 Rows</em> to visually verify data after running the app.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Set the Connection String</div><div class="step-desc">In your code-behind, define the connection string as a field. This tells C# where your database lives.</div><div class="step-code">string connStr = @"Data Source=(localdb)\MSSQLLocalDB;
+    Initial Catalog=mydb;
+    Integrated Security=True;";</div><div class="step-note">🖱️ <strong>VS tip:</strong> You can also find the exact connection string by going to <em>View → Server Explorer</em> → right-click <em>Data Connections</em> → <em>Add Connection</em> → browse to your DB → after connecting, click the connection and check the <strong>Properties panel</strong> (F4) — it shows the connection string ready to copy.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Design the ASPX Page</div><div class="step-desc">Open Default.aspx. In Design view, drag from Toolbox: a <strong>TextBox</strong> (for name), another <strong>TextBox</strong> (for phone), a <strong>RegularExpressionValidator</strong>, a <strong>Button</strong>, a <strong>Label</strong>, and a <strong>GridView</strong>.</div><div class="step-note">🖱️ <strong>GridView smart tag:</strong> After dragging a GridView onto the designer, a small <strong>▶ arrow (smart tag)</strong> appears at its top-right corner. Click it → you'll see options like "Auto Format", "Choose Data Source", "Edit Columns". Use <em>Edit Columns</em> to add BoundField columns visually instead of typing them in Source view.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Write the INSERT Logic (BtnSubmit_Click)</div><div class="step-desc">Double-click the Button in Design view to auto-generate the click handler in code-behind. Use parameterized queries — never concatenate strings directly (SQL injection risk).</div><div class="step-code">SqlConnection con = new SqlConnection(connStr);
+string str = "INSERT INTO contacts (name, phonenumber) VALUES (@name, @phonenumber)";
+SqlCommand cmd = new SqlCommand(str, con);
+cmd.Parameters.AddWithValue("@name", name.Text);
+cmd.Parameters.AddWithValue("@phonenumber", phonenum.Text);
+con.Open();
+cmd.ExecuteNonQuery();
+con.Close();</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Write the SELECT Logic (LoadContacts)</div><div class="step-desc">Fetch all records and bind to GridView. Use ExecuteReader for SELECT queries.</div><div class="step-code">private void LoadContacts()
+{
+    SqlConnection con = new SqlConnection(connStr);
+    SqlCommand cmd = new SqlCommand("SELECT name, phonenumber FROM contacts", con);
+    con.Open();
+    GridViewContacts.DataSource = cmd.ExecuteReader();
+    GridViewContacts.DataBind();
+    con.Close();
+}</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Call LoadContacts on Page_Load</div><div class="step-desc">Use IsPostBack to avoid reloading on every button click postback.</div><div class="step-code">protected void Page_Load(object sender, EventArgs e) 
+{ 
+    if (!IsPostBack) LoadContacts(); 
+}</div><div class="step-note">🖱️ <strong>Shortcut:</strong> In Design view, double-click an <strong>empty area of the page</strong> (not a control) to auto-generate the Page_Load handler in code-behind.</div></div></div>
+    </div>
+  </div>
+
+  <div id="q2-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx (key controls)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="tag">&lt;asp:TextBox</span> <span class="attr">ID</span>=<span class="val">"name"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">placeholder</span>=<span class="val">"Name"</span> <span class="tag">/&gt;</span><span class="tag">&lt;br /&gt;</span>
+<span class="tag">&lt;asp:TextBox</span> <span class="attr">ID</span>=<span class="val">"phonenum"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">placeholder</span>=<span class="val">"Phone"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;asp:RegularExpressionValidator</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">ControlToValidate</span>=<span class="val">"phonenum"</span>
+    <span class="attr">ErrorMessage</span>=<span class="val">"Enter 10-digit number"</span> <span class="attr">ValidationExpression</span>=<span class="val">"^\d{10}$"</span> <span class="attr">ForeColor</span>=<span class="val">"Red"</span> <span class="tag">/&gt;</span><span class="tag">&lt;br /&gt;</span>
+<span class="tag">&lt;asp:Button</span> <span class="attr">ID</span>=<span class="val">"BtnSubmit"</span> <span class="attr">Text</span>=<span class="val">"Add Record"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">OnClick</span>=<span class="val">"BtnSubmit_Click"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;asp:Label</span> <span class="attr">ID</span>=<span class="val">"label"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">ForeColor</span>=<span class="val">"Green"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;asp:GridView</span> <span class="attr">ID</span>=<span class="val">"GridViewContacts"</span> <span class="attr">runat</span>=<span class="val">"server"</span> <span class="attr">AutoGenerateColumns</span>=<span class="val">"False"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;Columns&gt;</span>
+        <span class="tag">&lt;asp:BoundField</span> <span class="attr">DataField</span>=<span class="val">"name"</span> <span class="attr">HeaderText</span>=<span class="val">"Name"</span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;asp:BoundField</span> <span class="attr">DataField</span>=<span class="val">"phonenumber"</span> <span class="attr">HeaderText</span>=<span class="val">"Phone Number"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/Columns&gt;</span>
+<span class="tag">&lt;/asp:GridView&gt;</span></pre>
+    </div>
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx.cs</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">using</span> System;
+<span class="kw">using</span> System.Data.SqlClient;
+<span class="kw">using</span> System.Web.UI;
+
+<span class="kw">namespace</span> WebApplication
+{
+    <span class="kw">public partial class</span> <span class="type">_Default</span> : <span class="type">Page</span>
+    {
+        <span class="kw">string</span> connStr = <span class="str">@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=mydb;Integrated Security=True;"</span>;
+
+        <span class="kw">protected void</span> <span class="fn">Page_Load</span>(<span class="kw">object</span> sender, <span class="type">EventArgs</span> e) 
+        { 
+            <span class="kw">if</span> (!IsPostBack) <span class="fn">LoadContacts</span>(); 
+        }
+
+        <span class="kw">protected void</span> <span class="fn">BtnSubmit_Click</span>(<span class="kw">object</span> sender, <span class="type">EventArgs</span> e)
+        {
+            <span class="type">SqlConnection</span> con = <span class="kw">new</span> <span class="type">SqlConnection</span>(connStr);
+            <span class="kw">string</span> str = <span class="str">"INSERT INTO contacts (name, phonenumber) VALUES (@name, @phonenumber)"</span>;
+            <span class="type">SqlCommand</span> cmd = <span class="kw">new</span> <span class="type">SqlCommand</span>(str, con);
+            cmd.Parameters.<span class="fn">AddWithValue</span>(<span class="str">"@name"</span>, name.Text);
+            cmd.Parameters.<span class="fn">AddWithValue</span>(<span class="str">"@phonenumber"</span>, phonenum.Text);
+            con.<span class="fn">Open</span>();
+            cmd.<span class="fn">ExecuteNonQuery</span>();
+            con.<span class="fn">Close</span>();
+            <span class="fn">LoadContacts</span>();
+        }
+
+        <span class="kw">private void</span> <span class="fn">LoadContacts</span>()
+        {
+            <span class="type">SqlConnection</span> con = <span class="kw">new</span> <span class="type">SqlConnection</span>(connStr);
+            <span class="type">SqlCommand</span> cmd = <span class="kw">new</span> <span class="type">SqlCommand</span>(<span class="str">"SELECT name, phonenumber FROM contacts"</span>, con);
+            con.<span class="fn">Open</span>();
+            GridViewContacts.DataSource = cmd.<span class="fn">ExecuteReader</span>();
+            GridViewContacts.<span class="fn">DataBind</span>();
+            con.<span class="fn">Close</span>();
+        }
+    }
+}</pre>
+    </div>
+  </div>
+
+  <div id="q2-memory" class="tab-content">
+    <p class="flip-hint" style="color:var(--muted);font-size:0.82rem;margin-bottom:16px">👆 Click to flip</p>
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q2 · Core Pattern</div><div class="card-front">What are the 5 steps of the SQL pattern in order?</div><div class="card-back">1. <code>new SqlConnection(connStr)</code><br>2. <code>new SqlCommand(query, con)</code><br>3. <code>cmd.Parameters.AddWithValue()</code><br>4. <code>con.Open()</code><br>5. <code>cmd.ExecuteNonQuery()</code> then <code>con.Close()</code></div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q2 · Key Difference</div><div class="card-front">ExecuteNonQuery vs ExecuteReader — when to use each?</div><div class="card-back"><code>ExecuteNonQuery()</code> → INSERT, UPDATE, DELETE (no data returned)<br><code>ExecuteReader()</code> → SELECT (returns rows of data)</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q2 · GridView</div><div class="card-front">How do you display SQL data in a GridView?</div><div class="card-back"><code>GridView.DataSource = cmd.ExecuteReader();</code><br><code>GridView.DataBind();</code><br>The DataField in BoundField must match the column name in SQL.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q2 · PostBack</div><div class="card-front">Why check "if (!IsPostBack)" in Page_Load?</div><div class="card-back">Page_Load fires on every request including button clicks. Without this check, you'd reload data even when you don't need to, causing issues.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q2b ═══ -->
+<div id="q2b" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 2B</div>
+      <div class="section-title">Pythagoras Theorem</div>
+      <div class="section-subtitle">Enter 2 sides → calculate missing side using Math.Sqrt</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q2b-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q2b-code')">Code</div>
+  </div>
+  <div id="q2b-steps" class="tab-content active">
+    <div class="info-box"><strong>Core idea:</strong> a² + b² = c² — if the user fills 2 fields, calculate the 3rd. Use Math.Sqrt() and double.TryParse() to safely read inputs.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Create 3 TextBoxes</div><div class="step-desc">One for hypotenuse (c), one for side a, one for side b. Leave one empty — that's the one to calculate.</div><div class="step-note">🖱️ <strong>Design view tip:</strong> Open Toolbox → Standard → drag 3 <code>TextBox</code> controls onto the page. In the <strong>Properties panel</strong> (F4), set the <code>ID</code> of each: <code>hypotenuse</code>, <code>sidea</code>, <code>sideb</code>. Also drag a <code>Button</code> and a <code>Label</code> (ID: <code>lblResult</code>).</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Use double.TryParse to read values</div><div class="step-desc">TryParse sets the variable to 0 if the field is empty — perfect for detecting which side is missing.</div><div class="step-code">double a = 0, b = 0, c = 0;
+double.TryParse(hypotenuse.Text, out a);
+double.TryParse(sidea.Text, out b);
+double.TryParse(sideb.Text, out c);</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Write if-else for each missing side</div><div class="step-desc">If a (hypotenuse) is 0, calculate it. If c (side b) is 0, calculate it.</div><div class="step-code">if (b > 0 && c > 0 && a == 0) {
+    a = Math.Sqrt((b * b) + (c * c));
+    lblResult.Text = "Hypotenuse = " + a.ToString("0.00");
+} else if (a > 0 && b > 0 && c == 0) {
+    c = Math.Sqrt((a * a) - (b * b));
+    lblResult.Text = "Side B = " + c.ToString("0.00");
+}</div><div class="step-note">Note: <code>a.ToString("0.00")</code> formats to 2 decimal places.</div></div></div>
+    </div>
+  </div>
+  <div id="q2b-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">BtnSubmit_Click logic</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">protected void</span> <span class="fn">BtnSubmit_Click</span>(<span class="kw">object</span> sender, <span class="type">EventArgs</span> e)
+{
+    <span class="kw">double</span> a = <span class="num">0</span>, b = <span class="num">0</span>, c = <span class="num">0</span>;
+    <span class="kw">double</span>.<span class="fn">TryParse</span>(hypotenuse.Text, <span class="kw">out</span> a);
+    <span class="kw">double</span>.<span class="fn">TryParse</span>(sidea.Text, <span class="kw">out</span> b);
+    <span class="kw">double</span>.<span class="fn">TryParse</span>(sideb.Text, <span class="kw">out</span> c);
+
+    <span class="kw">if</span> (b > <span class="num">0</span> && c > <span class="num">0</span> && a == <span class="num">0</span>) {
+        a = Math.<span class="fn">Sqrt</span>((b * b) + (c * c));
+        lblResult.Text = <span class="str">"Hypotenuse = "</span> + a.<span class="fn">ToString</span>(<span class="str">"0.00"</span>);
+    } <span class="kw">else if</span> (a > <span class="num">0</span> && b > <span class="num">0</span> && c == <span class="num">0</span>) {
+        c = Math.<span class="fn">Sqrt</span>((a * a) - (b * b));
+        lblResult.Text = <span class="str">"Side B = "</span> + c.<span class="fn">ToString</span>(<span class="str">"0.00"</span>);
+    }
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q3 ═══ -->
+<div id="q3" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 3</div>
+      <div class="section-title">Fibonacci, Prime, Vowel, Reverse, Digit Sum</div>
+      <div class="section-subtitle">Logic snippets — know the pattern for each</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q3-logic')">Logic Snippets</div>
+    <div class="tab" onclick="switchTab(this, 'q3-memory')">Memory Cards</div>
+  </div>
+  <div id="q3-logic" class="tab-content active">
+    <div class="info-box"><strong>These are all code-behind only.</strong> The ASPX is just TextBoxes + a Button + a Label. All logic lives in the button click handler.</div>
+    <div class="warn-box">🖱️ <strong>VS UI tip for all Q3 sub-practicals:</strong> In Design view, drag one <code>TextBox</code> (ID: <code>txtInput</code>), one <code>Button</code>, and one <code>Label</code> (ID: <code>lblResult</code>) from the Toolbox onto the page. <strong>Double-click the Button</strong> to auto-generate the click handler. Then write the logic below inside that handler. Use the <strong>Properties panel (F4)</strong> to set IDs without touching Source view.</div>
+
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Fibonacci Series</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">int</span> a = <span class="num">0</span>, b = <span class="num">1</span>, c = <span class="num">0</span>;
+<span class="kw">int</span> limit = <span class="kw">int</span>.<span class="fn">Parse</span>(txtInput.Text);
+<span class="kw">string</span> series = a + <span class="str">" "</span> + b;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">2</span>; i &lt; limit; i++) {
+    c = a + b;
+    series += <span class="str">" "</span> + c;
+    a = b; b = c;       <span class="cm">// shift: a becomes b, b becomes new c</span>
+}
+lblResult.Text = series;</pre>
+    </div>
+
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Prime Number Test</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">int</span> num = <span class="kw">int</span>.<span class="fn">Parse</span>(txtInput.Text);
+<span class="kw">int</span> f = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= num; i++) {
+    <span class="kw">if</span> (num % i == <span class="num">0</span>) f++;   <span class="cm">// count factors</span>
+}
+<span class="kw">if</span> (f == <span class="num">2</span>)                   <span class="cm">// prime = exactly 2 factors (1 and itself)</span>
+    lblResult.Text = <span class="str">"Prime"</span>;
+<span class="kw">else</span>
+    lblResult.Text = <span class="str">"Not Prime"</span>;</pre>
+    </div>
+
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Vowel Test</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">char</span> ch = <span class="kw">char</span>.<span class="fn">ToLower</span>(txtInput.Text[<span class="num">0</span>]);
+<span class="kw">switch</span> (ch) {
+    <span class="kw">case</span> <span class="str">'a'</span>: <span class="kw">case</span> <span class="str">'e'</span>: <span class="kw">case</span> <span class="str">'i'</span>: <span class="kw">case</span> <span class="str">'o'</span>: <span class="kw">case</span> <span class="str">'u'</span>:
+        lblResult.Text = <span class="str">"Vowel"</span>; <span class="kw">break</span>;
+    <span class="kw">default</span>:
+        lblResult.Text = <span class="str">"Consonant"</span>; <span class="kw">break</span>;
+}</pre>
+    </div>
+
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Reverse Number + Sum of Digits</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">int</span> num = <span class="kw">int</span>.<span class="fn">Parse</span>(txtInput.Text);
+<span class="kw">int</span> rev = <span class="num">0</span>, sum = <span class="num">0</span>, temp = num;
+<span class="kw">while</span> (temp > <span class="num">0</span>) {
+    <span class="kw">int</span> digit = temp % <span class="num">10</span>;   <span class="cm">// get last digit</span>
+    rev = rev * <span class="num">10</span> + digit;  <span class="cm">// build reverse</span>
+    sum += digit;             <span class="cm">// accumulate sum</span>
+    temp /= <span class="num">10</span>;              <span class="cm">// remove last digit</span>
+}
+lblResult.Text = <span class="str">"Reversed: "</span> + rev + <span class="str">", Sum: "</span> + sum;</pre>
+    </div>
+  </div>
+
+  <div id="q3-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3 · Fibonacci</div><div class="card-front">What are the starting values for Fibonacci?</div><div class="card-back"><code>a = 0, b = 1</code> — series starts "0 1 1 2 3 5 8...". Each new number c = a + b, then shift: a = b, b = c.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3 · Prime</div><div class="card-front">How do you check if a number is prime?</div><div class="card-back">Count its factors. If <code>num % i == 0</code>, it's a factor. A prime has exactly 2 factors (1 and itself), so <code>if (f == 2)</code> → Prime.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3 · Reverse</div><div class="card-front">How do you reverse a number using a while loop?</div><div class="card-back"><code>digit = temp % 10</code> (last digit)<br><code>rev = rev * 10 + digit</code> (build reverse)<br><code>temp /= 10</code> (remove last digit)<br>Repeat until temp == 0.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3 · Vowel</div><div class="card-front">What C# method gets the first character of a string?</div><div class="card-back"><code>txtInput.Text[0]</code> — index 0. Use <code>char.ToLower()</code> to make it case-insensitive before the switch statement.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q5 ═══ -->
+<div id="q5" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 5</div>
+      <div class="section-title">Full SQL CRUD (Insert, Update, Delete, Select)</div>
+      <div class="section-subtitle">Q2 + Update/Delete in GridView — the hardest SQL practical</div>
+    </div>
+    <span class="diff-badge diff-medium">MEDIUM</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q5-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q5-code')">Update Code</div>
+    <div class="tab" onclick="switchTab(this, 'q5-memory')">Memory Cards</div>
+  </div>
+  <div id="q5-steps" class="tab-content active">
+    <div class="warn-box"><strong>Q5 builds on Q2.</strong> INSERT and SELECT are the same. The new things are: GridView with DataKeyNames, RowEditing, RowUpdating, RowCancelingEdit, RowDeleting events.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Set DataKeyNames on GridView</div><div class="step-desc">This stores the primary key (id) invisibly so you can use it in update/delete without displaying it.</div><div class="step-code">&lt;asp:GridView ID="GridViewStudents" runat="server"
+    AutoGenerateColumns="False"
+    DataKeyNames="id"
+    OnRowEditing="GridViewStudents_RowEditing"
+    OnRowUpdating="GridViewStudents_RowUpdating"
+    OnRowCancelingEdit="GridViewStudents_RowCancelingEdit"
+    OnRowDeleting="GridViewStudents_RowDeleting"&gt;
+    &lt;Columns&gt;
+        &lt;asp:BoundField DataField="name" HeaderText="Name" /&gt;
+        &lt;asp:CommandField ShowEditButton="True" ShowDeleteButton="True" /&gt;
+    &lt;/Columns&gt;
+&lt;/asp:GridView&gt;</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">RowEditing — enter edit mode</div><div class="step-desc">Just set EditIndex to the clicked row's index and rebind.</div><div class="step-code">protected void GridViewStudents_RowEditing(object sender, GridViewEditEventArgs e)
+{
+    GridViewStudents.EditIndex = e.NewEditIndex;
+    LoadStudents();
+}</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">RowCancelingEdit — exit edit mode</div><div class="step-desc">Set EditIndex back to -1 (meaning no row is in edit mode).</div><div class="step-code">GridViewStudents.EditIndex = -1;
+LoadStudents();</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">RowUpdating — the tricky one</div><div class="step-desc">Get the ID from DataKeys, extract new text from the row's TextBoxes (they appear in edit mode), run UPDATE query.</div><div class="step-code">int id = Convert.ToInt32(GridViewStudents.DataKeys[e.RowIndex].Value);
+string name = ((TextBox)GridViewStudents.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
+<span class="cm">// Then: SqlConnection → UPDATE query → ExecuteNonQuery</span>
+GridViewStudents.EditIndex = -1;
+LoadStudents();</div><div class="step-note"><code>DataKeys[e.RowIndex].Value</code> → gets the id of that row. <code>Cells[1].Controls[0]</code> → first control (TextBox) in column index 1.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">RowDeleting — simplest event</div><div class="step-desc">Get the id from DataKeys, run DELETE query.</div><div class="step-code">string id = GridViewStudents.DataKeys[e.RowIndex].Value.ToString();
+<span class="cm">// DELETE FROM students WHERE id = @id</span>
+LoadStudents();</div></div></div>
+    </div>
+  </div>
+  <div id="q5-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">RowUpdating — full method</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">protected void</span> <span class="fn">GridViewStudents_RowUpdating</span>(<span class="kw">object</span> sender, <span class="type">GridViewUpdateEventArgs</span> e)
+{
+    <span class="kw">int</span> id = <span class="type">Convert</span>.<span class="fn">ToInt32</span>(GridViewStudents.DataKeys[e.RowIndex].Value);
+    <span class="kw">string</span> name = ((<span class="type">TextBox</span>)GridViewStudents.Rows[e.RowIndex].Cells[<span class="num">1</span>].Controls[<span class="num">0</span>]).Text;
+    
+    <span class="type">SqlConnection</span> con = <span class="kw">new</span> <span class="type">SqlConnection</span>(connStr);
+    <span class="kw">string</span> query = <span class="str">"UPDATE students SET name=@n WHERE id=@id"</span>;
+    <span class="type">SqlCommand</span> cmd = <span class="kw">new</span> <span class="type">SqlCommand</span>(query, con);
+    cmd.Parameters.<span class="fn">AddWithValue</span>(<span class="str">"@n"</span>, name);
+    cmd.Parameters.<span class="fn">AddWithValue</span>(<span class="str">"@id"</span>, id);
+    con.<span class="fn">Open</span>();
+    cmd.<span class="fn">ExecuteNonQuery</span>();
+    con.<span class="fn">Close</span>();
+    
+    GridViewStudents.EditIndex = -<span class="num">1</span>;
+    <span class="fn">LoadStudents</span>();
+}</pre>
+    </div>
+  </div>
+  <div id="q5-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5 · GridView</div><div class="card-front">What does DataKeyNames do and why is it needed?</div><div class="card-back">Stores the primary key (like "id") invisibly per row. Lets you retrieve the key in RowUpdating/RowDeleting via <code>DataKeys[e.RowIndex].Value</code> without showing it to the user.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5 · GridView</div><div class="card-front">How do you get the value from a TextBox in edit mode?</div><div class="card-back"><code>((TextBox)GridView.Rows[e.RowIndex].Cells[colIndex].Controls[0]).Text</code> — cast Controls[0] to TextBox.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5 · GridView</div><div class="card-front">How do you cancel edit mode on a GridView?</div><div class="card-back"><code>GridViewStudents.EditIndex = -1;</code> then call <code>LoadStudents()</code> to rebind. -1 means "no row in edit mode".</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5 · ASPX</div><div class="card-front">What control adds Edit/Delete buttons to a GridView?</div><div class="card-back"><code>&lt;asp:CommandField ShowEditButton="True" ShowDeleteButton="True" /&gt;</code> inside the Columns tag.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q6 ═══ -->
+<div id="q6" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 6</div>
+      <div class="section-title">AngularJS Single Page App</div>
+      <div class="section-subtitle">Client-side two-way binding with ng-model</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q6-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q6-code')">Code</div>
+    <div class="tab" onclick="switchTab(this, 'q6-memory')">Memory Cards</div>
+  </div>
+  <div id="q6-steps" class="tab-content active">
+    <div class="info-box"><strong>Key insight:</strong> AngularJS runs entirely in the browser — no server postbacks, no C#. The {{ }} braces display scope variables live as you type.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Include AngularJS CDN in your page</div><div class="step-code">&lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"&gt;&lt;/script&gt;</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create app.js with module + controller</div><div class="step-code">var app = angular.module('myapp', []);
+app.controller('MyController', function ($scope) {
+    $scope.name = "KC";
+    $scope.updateGreeting = function () {
+        $scope.greeting = "Hello " + $scope.name + " !";
+    };
+});</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Wire up HTML with Angular directives</div><div class="step-code">&lt;div ng-app="myapp" ng-controller="MyController"&gt;
+    &lt;input type="text" ng-model="name" ng-change="updateGreeting()" /&gt;
+    &lt;h3&gt;Output: {{ greeting }}&lt;/h3&gt;
+&lt;/div&gt;</div><div class="step-note"><code>ng-app</code> = app name, <code>ng-controller</code> = which controller, <code>ng-model</code> = binds input to $scope.name, <code>ng-change</code> = fires on every keystroke.</div></div></div>
+    </div>
+  </div>
+  <div id="q6-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">app.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">var</span> app = angular.<span class="fn">module</span>(<span class="str">'myapp'</span>, []);
+app.<span class="fn">controller</span>(<span class="str">'MyController'</span>, <span class="kw">function</span> ($scope) {
+    $scope.name = <span class="str">"KC"</span>;
+    $scope.updateGreeting = <span class="kw">function</span> () {
+        $scope.greeting = <span class="str">"Hello "</span> + $scope.name + <span class="str">" !"</span>;
+    };
+});</pre>
+    </div>
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx (HTML part)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="tag">&lt;div</span> <span class="attr">ng-app</span>=<span class="val">"myapp"</span> <span class="attr">ng-controller</span>=<span class="val">"MyController"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">ng-model</span>=<span class="val">"name"</span> <span class="attr">ng-change</span>=<span class="val">"updateGreeting()"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Output: {{ greeting }}<span class="tag">&lt;/h3&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="val">"app.js"</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+    </div>
+  </div>
+  <div id="q6-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q6 · Angular</div><div class="card-front">What does ng-model do?</div><div class="card-back">Two-way data binding — connects an input field to a $scope variable. When you type in the input, $scope.name updates automatically and vice versa.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q6 · Angular</div><div class="card-front">What is $scope?</div><div class="card-back">The "glue" between the controller and the HTML view. Variables set on $scope are accessible in the HTML with {{ }} braces.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q6 · Angular</div><div class="card-front">Difference: ng-change vs ng-click?</div><div class="card-back"><code>ng-change</code> fires every time the input value changes (every keystroke). <code>ng-click</code> fires only when something is clicked.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q7 ═══ -->
+<div id="q7" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 7</div>
+      <div class="section-title">MongoDB CRUD</div>
+      <div class="section-subtitle">ASP.NET + MongoDB C# Driver — most complex practical</div>
+    </div>
+    <span class="diff-badge diff-hard">HARD</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q7-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q7-code')">Code</div>
+    <div class="tab" onclick="switchTab(this, 'q7-memory')">Memory Cards</div>
+  </div>
+  <div id="q7-steps" class="tab-content active">
+    <div class="warn-box"><strong>Don't try to memorize every line.</strong> Understand: MongoHelper is a helper class that wraps all DB calls. Default.aspx.cs just calls m.InsertUser(), m.GetAllUsers() etc. That's the key structure.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install MongoDB C# Driver via NuGet</div><div class="step-desc">In Visual Studio: Tools → NuGet Package Manager → Manage NuGet Packages → Browse → search "MongoDB.Driver" → Install.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create the User model class</div><div class="step-desc">This is a plain C# class that represents one document in MongoDB. [BsonId] marks the primary key field.</div><div class="step-code">public class User
+{
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public int Age { get; set; }
+}</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Create MongoHelper.cs — the wrapper class</div><div class="step-desc">This handles the connection and all CRUD methods. The constructor connects to MongoDB.</div><div class="step-code">public MongoHelper()
+{
+    var client = new MongoClient("mongodb://localhost:27017");
+    db = client.GetDatabase("MyDatabase");
+    users = db.GetCollection&lt;User&gt;("Users");
+}</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">The 4 CRUD methods in MongoHelper</div><div class="step-code">// INSERT
+public void InsertUser(User user) => users.InsertOne(user);
+
+// READ
+public List&lt;User&gt; GetAllUsers() => users.Find(FilterDefinition&lt;User&gt;.Empty).ToList();
+
+// UPDATE
+public void UpdateUser(string id, User updated) {
+    var filter = Builders&lt;User&gt;.Filter.Eq(u => u.Id, id);
+    users.ReplaceOne(filter, updated);
+}
+
+// DELETE
+public void DeleteUser(string id) {
+    var filter = Builders&lt;User&gt;.Filter.Eq(u => u.Id, id);
+    users.DeleteOne(filter);
+}</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Use MongoHelper in Default.aspx.cs</div><div class="step-desc">Create one instance of MongoHelper, then call its methods from button events.</div><div class="step-code">protected MongoHelper m = new MongoHelper();
+
+protected void btnAdd_Click(object sender, EventArgs e)
+{
+    User u = new User { Name = txtName.Text, Age = int.Parse(txtAge.Text) };
+    m.InsertUser(u);
+    BindGrid();
+}
+
+private void BindGrid()
+{
+    GridUser.DataSource = m.GetAllUsers();
+    GridUser.DataBind();
+}</div></div></div>
+    </div>
+  </div>
+  <div id="q7-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">MongoHelper.cs (full)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">using</span> MongoDB.Bson;
+<span class="kw">using</span> MongoDB.Bson.Serialization.Attributes;
+<span class="kw">using</span> MongoDB.Driver;
+<span class="kw">using</span> System.Collections.Generic;
+<span class="kw">using</span> System.Linq;
+
+<span class="kw">public class</span> <span class="type">MongoHelper</span>
+{
+    <span class="kw">private readonly</span> <span class="type">IMongoDatabase</span> db;
+    <span class="kw">private readonly</span> <span class="type">IMongoCollection</span>&lt;<span class="type">User</span>&gt; users;
+
+    <span class="kw">public</span> <span class="fn">MongoHelper</span>()
+    {
+        <span class="kw">var</span> client = <span class="kw">new</span> <span class="type">MongoClient</span>(<span class="str">"mongodb://localhost:27017"</span>);
+        db = client.<span class="fn">GetDatabase</span>(<span class="str">"MyDatabase"</span>);
+        users = db.<span class="fn">GetCollection</span>&lt;<span class="type">User</span>&gt;(<span class="str">"Users"</span>);
+    }
+
+    <span class="kw">public void</span> <span class="fn">InsertUser</span>(<span class="type">User</span> user) => users.<span class="fn">InsertOne</span>(user);
+
+    <span class="kw">public</span> <span class="type">List</span>&lt;<span class="type">User</span>&gt; <span class="fn">GetAllUsers</span>() => 
+        users.<span class="fn">Find</span>(<span class="type">FilterDefinition</span>&lt;<span class="type">User</span>&gt;.Empty).<span class="fn">ToList</span>();
+
+    <span class="kw">public void</span> <span class="fn">UpdateUser</span>(<span class="kw">string</span> id, <span class="type">User</span> updatedUser)
+    {
+        <span class="kw">var</span> filter = <span class="type">Builders</span>&lt;<span class="type">User</span>&gt;.Filter.<span class="fn">Eq</span>(u => u.Id, id);
+        users.<span class="fn">ReplaceOne</span>(filter, updatedUser);
+    }
+
+    <span class="kw">public void</span> <span class="fn">DeleteUser</span>(<span class="kw">string</span> id)
+    {
+        <span class="kw">var</span> filter = <span class="type">Builders</span>&lt;<span class="type">User</span>&gt;.Filter.<span class="fn">Eq</span>(u => u.Id, id);
+        users.<span class="fn">DeleteOne</span>(filter);
+    }
+}
+
+<span class="kw">public class</span> <span class="type">User</span>
+{
+    [<span class="type">BsonId</span>]
+    [<span class="type">BsonRepresentation</span>(<span class="type">BsonType</span>.ObjectId)]
+    <span class="kw">public string</span> Id { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public int</span> Age { <span class="kw">get</span>; <span class="kw">set</span>; }
+}</pre>
+    </div>
+  </div>
+  <div id="q7-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q7 · MongoDB</div><div class="card-front">What does [BsonId] do?</div><div class="card-back">Marks the property as the MongoDB document's _id field. [BsonRepresentation(BsonType.ObjectId)] lets you store the ObjectId as a string in C#.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q7 · MongoDB</div><div class="card-front">How do you create a filter for a specific document?</div><div class="card-back"><code>Builders&lt;User&gt;.Filter.Eq(u => u.Id, id)</code> — Eq means "equals". This finds documents where the Id field matches.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q7 · MongoDB</div><div class="card-front">How do you get ALL documents from a collection?</div><div class="card-back"><code>users.Find(FilterDefinition&lt;User&gt;.Empty).ToList()</code> — Empty filter means no condition = return everything.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q7 · Structure</div><div class="card-front">What is the purpose of the MongoHelper class?</div><div class="card-back">It's a wrapper/helper that handles the MongoDB connection and all CRUD methods. The code-behind just calls its methods, keeping DB logic separate.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q8 ═══ -->
+<div id="q8" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 8</div>
+      <div class="section-title">Flask Web App (Python)</div>
+      <div class="section-subtitle">Simplest practical — Python routes with @app.route decorator</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q8-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q8-code')">Code</div>
+  </div>
+  <div id="q8-steps" class="tab-content active">
+    <div class="info-box"><strong>Flask is the simplest practical.</strong> It's just Python — no C#, no GridViews. Just @app.route("/path") → return "string".</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install Flask</div><div class="step-desc">Open terminal/command prompt: <code>pip install flask</code></div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create app.py</div><div class="step-code">from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Welcome to Flask"
+
+@app.route("/about")
+def about():
+    return "This is about page"
+
+@app.route("/user/&lt;name&gt;")
+def user(name):
+    return f"Hello, {name}"
+
+if __name__ == "__main__":
+    app.run(debug=True)</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">The ASP.NET equivalent (Global.asax)</div><div class="step-desc">In Visual Studio, routing is done in Global.asax.cs using RouteTable. Each Flask route maps to an ASPX page.</div><div class="step-code">routes.MapPageRoute("HomeRoute", "", "~/page/home.aspx");
+routes.MapPageRoute("AboutRoute", "about", "~/page/about.aspx");
+routes.MapPageRoute("UserRoute", "user/{name}", "~/page/user.aspx");</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Read route parameter in user.aspx.cs</div><div class="step-code">string name = Page.RouteData.Values["name"] as string;
+lblUser.Text = $"Hello, {name}";</div><div class="step-note"><code>Page.RouteData.Values["name"]</code> matches the <code>{name}</code> placeholder in the route definition.</div></div></div>
+    </div>
+  </div>
+  <div id="q8-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">app.py (Flask — Python)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre class="code-block"><span class="kw">from</span> flask <span class="kw">import</span> Flask
+app = <span class="fn">Flask</span>(__name__)
+
+<span class="attr">@app.route</span>(<span class="str">"/"</span>)
+<span class="kw">def</span> <span class="fn">home</span>():
+    <span class="kw">return</span> <span class="str">"Welcome to Flask"</span>
+
+<span class="attr">@app.route</span>(<span class="str">"/about"</span>)
+<span class="kw">def</span> <span class="fn">about</span>():
+    <span class="kw">return</span> <span class="str">"This is about page"</span>
+
+<span class="attr">@app.route</span>(<span class="str">"/user/&lt;name&gt;"</span>)
+<span class="kw">def</span> <span class="fn">user</span>(name):
+    <span class="kw">return</span> <span class="str">f"Hello, {name}"</span>
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    app.<span class="fn">run</span>(debug=<span class="kw">True</span>)</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHEAT SHEET ═══ -->
+<div id="cheatsheet" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">REFERENCE</div>
+      <div class="section-title">Master Cheat Sheet</div>
+      <div class="section-subtitle">Everything you need to recall — at a glance</div>
+    </div>
+  </div>
+
+  <div class="info-box" style="margin-bottom:28px"><strong>The SQL Pattern (memorize this):</strong> <code>new SqlConnection(connStr)</code> → <code>new SqlCommand(query, con)</code> → <code>AddWithValue()</code> → <code>con.Open()</code> → <code>ExecuteNonQuery() or ExecuteReader()</code> → <code>con.Close()</code></div>
+
+  <table class="cheat-table">
+    <thead>
+      <tr><th>Practical</th><th>Key Method / Concept</th><th>When to Use</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Q1</td><td><code>int.Parse(TextBox.Text)</code></td><td>Convert TextBox string to int</td></tr>
+      <tr><td>Q1</td><td><code>Response.Write("text")</code></td><td>Display output without a Label</td></tr>
+      <tr><td>Q1</td><td><code>ValidationExpression="^\d+$"</code></td><td>Only digits in RegularExpressionValidator</td></tr>
+      <tr><td>Q2</td><td><code>cmd.ExecuteNonQuery()</code></td><td>INSERT / UPDATE / DELETE (no return)</td></tr>
+      <tr><td>Q2</td><td><code>cmd.ExecuteReader()</code></td><td>SELECT — returns rows</td></tr>
+      <tr><td>Q2</td><td><code>if (!IsPostBack)</code></td><td>Run code only on first page load</td></tr>
+      <tr><td>Q2</td><td><code>GridView.DataBind()</code></td><td>Always call after setting DataSource</td></tr>
+      <tr><td>Q2b</td><td><code>Math.Sqrt()</code></td><td>Square root for Pythagoras</td></tr>
+      <tr><td>Q2b</td><td><code>double.TryParse(text, out x)</code></td><td>Parse safely — sets 0 if empty</td></tr>
+      <tr><td>Q3</td><td><code>a = b; b = c;</code></td><td>Fibonacci shift after each iteration</td></tr>
+      <tr><td>Q3</td><td><code>if (f == 2)</code> → Prime</td><td>Count factors; prime has exactly 2</td></tr>
+      <tr><td>Q5</td><td><code>DataKeyNames="id"</code></td><td>Store primary key invisibly in GridView</td></tr>
+      <tr><td>Q5</td><td><code>DataKeys[e.RowIndex].Value</code></td><td>Get the row's primary key</td></tr>
+      <tr><td>Q5</td><td><code>GridView.EditIndex = -1</code></td><td>Exit edit mode on GridView</td></tr>
+      <tr><td>Q5</td><td><code>((TextBox)row.Cells[1].Controls[0]).Text</code></td><td>Get TextBox value from edit row</td></tr>
+      <tr><td>Q6</td><td><code>ng-model="name"</code></td><td>Two-way bind input to $scope variable</td></tr>
+      <tr><td>Q6</td><td><code>{{ greeting }}</code></td><td>Display $scope variable in HTML</td></tr>
+      <tr><td>Q6</td><td><code>angular.module('myapp', [])</code></td><td>Create Angular app</td></tr>
+      <tr><td>Q7</td><td><code>users.InsertOne(user)</code></td><td>MongoDB insert</td></tr>
+      <tr><td>Q7</td><td><code>users.Find(Filter.Empty).ToList()</code></td><td>MongoDB get all</td></tr>
+      <tr><td>Q7</td><td><code>Builders&lt;User&gt;.Filter.Eq(u=>u.Id, id)</code></td><td>MongoDB filter by id</td></tr>
+      <tr><td>Q8</td><td><code>@app.route("/path")</code></td><td>Flask URL route decorator</td></tr>
+      <tr><td>Q8</td><td><code>Page.RouteData.Values["name"]</code></td><td>Read URL route param in ASP.NET</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</main>
+</div>
+
+<!-- MOBILE DRAWER OVERLAY -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- MOBILE SIDEBAR DRAWER -->
+<div class="sidebar-drawer" id="sidebarDrawer">
+  <div class="drawer-close">
+    <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--accent)">Navigation</span>
+    <button class="drawer-close-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="sidebar-title">Practicals</div>
+  <div class="nav-item active" onclick="showSectionMobile('overview')"><span>🏠</span> Overview <span class="nav-badge">start</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q1')"><span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints <span class="nav-badge">easy</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q2')"><span class="difficulty-dot medium"></span> Q2 — Phone Book <span class="nav-badge">med</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q2b')"><span class="difficulty-dot easy"></span> Q2b — Pythagoras <span class="nav-badge">easy</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q3')"><span class="difficulty-dot easy"></span> Q3 — Fibonacci etc. <span class="nav-badge">easy</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q5')"><span class="difficulty-dot medium"></span> Q5 — SQL CRUD <span class="nav-badge">med</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q6')"><span class="difficulty-dot easy"></span> Q6 — AngularJS SPA <span class="nav-badge">easy</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q7')"><span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD <span class="nav-badge">hard</span></div>
+  <div class="nav-item" onclick="showSectionMobile('q8')"><span class="difficulty-dot easy"></span> Q8 — Flask App <span class="nav-badge">easy</span></div>
+  <div class="nav-item" onclick="showSectionMobile('cheatsheet')"><span>📋</span> Cheat Sheet <span class="nav-badge">key</span></div>
+  <div class="sidebar-legend" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+    <div class="sidebar-title">Difficulty</div>
+    <div class="legend-item"><span class="difficulty-dot easy"></span> Easy</div>
+    <div class="legend-item"><span class="difficulty-dot medium"></span> Medium</div>
+    <div class="legend-item"><span class="difficulty-dot hard"></span> Hard</div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="bnav-item active" onclick="showSectionMobile('overview')"><div class="bnav-dot" style="background:var(--accent)"></div><span class="bnav-label">Home</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q1')"><div class="bnav-dot easy"></div><span class="bnav-label">Q1</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q2')"><div class="bnav-dot medium"></div><span class="bnav-label">Q2</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q2b')"><div class="bnav-dot easy"></div><span class="bnav-label">Q2b</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q3')"><div class="bnav-dot easy"></div><span class="bnav-label">Q3</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q5')"><div class="bnav-dot medium"></div><span class="bnav-label">Q5</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q6')"><div class="bnav-dot easy"></div><span class="bnav-label">Q6</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q7')"><div class="bnav-dot hard"></div><span class="bnav-label">Q7</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('q8')"><div class="bnav-dot easy"></div><span class="bnav-label">Q8</span></div>
+  <div class="bnav-item" onclick="showSectionMobile('cheatsheet')"><div class="bnav-dot" style="background:var(--accent2)"></div><span class="bnav-label">Sheet</span></div>
+</nav>
+
+<!-- wrap cheat table for mobile scroll -->
+<script>
+// wrap cheat table on load
+window.addEventListener('DOMContentLoaded', () => {
+  const t = document.querySelector('.cheat-table');
+  if (t && !t.parentElement.classList.contains('cheat-table-wrap')) {
+    const w = document.createElement('div');
+    w.className = 'cheat-table-wrap';
+    t.parentNode.insertBefore(w, t);
+    w.appendChild(t);
+  }
+});
+
+function openDrawer() {
+  document.getElementById('sidebarDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.getElementById('sidebarDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showSectionMobile(id) {
+  showSectionById(id);
+  // update bottom nav
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
+  const idx = sectionIds.indexOf(id);
+  const bnavItems = document.querySelectorAll('.bnav-item');
+  if (idx >= 0 && bnavItems[idx]) bnavItems[idx].classList.add('active');
+  // update drawer nav items
+  document.querySelectorAll('#sidebarDrawer .nav-item').forEach(n => n.classList.remove('active'));
+  const drawerItems = document.querySelectorAll('#sidebarDrawer .nav-item');
+  if (idx >= 0 && drawerItems[idx]) drawerItems[idx].classList.add('active');
+  closeDrawer();
+}
+
+function showSection(id) {
+  showSectionById(id);
+  // sync bottom nav too
+  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
+  const idx = sectionIds.indexOf(id);
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  const bnavItems = document.querySelectorAll('.bnav-item');
+  if (idx >= 0 && bnavItems[idx]) bnavItems[idx].classList.add('active');
+}
+
+function showSectionById(id) {
+  document.querySelectorAll('.practical-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar .nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // highlight desktop sidebar
+  const allNavItems = document.querySelectorAll('.sidebar .nav-item');
+  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
+  const idx = sectionIds.indexOf(id);
+  if (idx >= 0 && allNavItems[idx]) allNavItems[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function switchTab(tabEl, contentId) {
+  const section = tabEl.closest('.practical-section');
+  section.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  tabEl.classList.add('active');
+  document.getElementById(contentId).classList.add('active');
+}
+
+function flipCard(card) {
+  card.classList.toggle('flipped');
+}
+
+function answerQuiz(optionEl, isCorrect) {
+  const question = optionEl.closest('.quiz-question');
+  if (question.querySelector('.correct, .wrong')) return;
+  question.querySelectorAll('.quiz-option').forEach(o => o.classList.add('disabled'));
+  optionEl.classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) {
+    question.querySelectorAll('.quiz-option').forEach(o => {
+      if (o.onclick.toString().includes('true')) o.classList.add('correct');
+    });
+  }
+  const fb = question.querySelector('.quiz-feedback');
+  fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-file').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
