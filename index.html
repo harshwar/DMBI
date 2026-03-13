@@ -414,47 +414,45 @@ pre.code-block {
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sidebar-title">Practicals</div>
-  <div class="nav-item active" onclick="showSection('overview')">
-    <span>🏠</span> Overview
-    <span class="nav-badge">start</span>
+  <div class="nav-item active" data-section="overview" onclick="showSection('overview')">
+    <span>🏠</span> Overview <span class="nav-badge">start</span>
   </div>
-  <div class="nav-item" onclick="showSection('q1')">
-    <span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints
-    <span class="nav-badge">easy</span>
+  <div class="nav-item" data-section="q1" onclick="showSection('q1')">
+    <span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints <span class="nav-badge">easy</span>
   </div>
-  <div class="nav-item" onclick="showSection('q2')">
-    <span class="difficulty-dot medium"></span> Q2 — Phone Book
-    <span class="nav-badge">med</span>
+  <div class="nav-item" data-section="q2" onclick="showSection('q2')">
+    <span class="difficulty-dot medium"></span> Q2 — Phone Book <span class="nav-badge">med</span>
   </div>
-  <div class="nav-item" onclick="showSection('q2b')">
-    <span class="difficulty-dot easy"></span> Q2b — Pythagoras
-    <span class="nav-badge">easy</span>
+  <div class="nav-item" data-section="q2b" onclick="showSection('q2b')">
+    <span class="difficulty-dot easy"></span> Q2b — Pythagoras <span class="nav-badge">easy</span>
   </div>
-  <div class="nav-item" onclick="showSection('q3')">
-    <span class="difficulty-dot easy"></span> Q3 — Fibonacci etc.
-    <span class="nav-badge">easy</span>
+  <div class="nav-item" data-section="q3" onclick="showSection('q3')">
+    <span class="difficulty-dot easy"></span> Q3 — Fibonacci etc. <span class="nav-badge">easy</span>
   </div>
-  <div class="nav-item" onclick="showSection('q5')">
-    <span class="difficulty-dot medium"></span> Q5 — SQL CRUD
-    <span class="nav-badge">med</span>
+  <div class="nav-item" data-section="q3b" onclick="showSection('q3b')">
+    <span class="difficulty-dot easy"></span> Q3b — Factorial etc. <span class="nav-badge">easy</span>
   </div>
-  <div class="nav-item" onclick="showSection('q6')">
-    <span class="difficulty-dot easy"></span> Q6 — AngularJS SPA
-    <span class="nav-badge">easy</span>
+  <div class="nav-item" data-section="q4" onclick="showSection('q4')">
+    <span class="difficulty-dot easy"></span> Q4 — Server Controls <span class="nav-badge">easy</span>
   </div>
-  <div class="nav-item" onclick="showSection('q7')">
-    <span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD
-    <span class="nav-badge">hard</span>
+  <div class="nav-item" data-section="q5" onclick="showSection('q5')">
+    <span class="difficulty-dot medium"></span> Q5 — SQL CRUD <span class="nav-badge">med</span>
   </div>
-  <div class="nav-item" onclick="showSection('q8')">
-    <span class="difficulty-dot easy"></span> Q8 — Flask App
-    <span class="nav-badge">easy</span>
+  <div class="nav-item" data-section="q5b" onclick="showSection('q5b')">
+    <span class="difficulty-dot medium"></span> Q5b — Disconnected DB <span class="nav-badge">med</span>
   </div>
-  <div class="nav-item" onclick="showSection('cheatsheet')">
-    <span>📋</span> Cheat Sheet
-    <span class="nav-badge">key</span>
+  <div class="nav-item" data-section="q6" onclick="showSection('q6')">
+    <span class="difficulty-dot easy"></span> Q6 — AngularJS SPA <span class="nav-badge">easy</span>
   </div>
-
+  <div class="nav-item" data-section="q7" onclick="showSection('q7')">
+    <span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD <span class="nav-badge">hard</span>
+  </div>
+  <div class="nav-item" data-section="q8" onclick="showSection('q8')">
+    <span class="difficulty-dot easy"></span> Q8 — Flask App <span class="nav-badge">easy</span>
+  </div>
+  <div class="nav-item" data-section="cheatsheet" onclick="showSection('cheatsheet')">
+    <span>📋</span> Cheat Sheet <span class="nav-badge">key</span>
+  </div>
   <div class="sidebar-legend">
     <div class="sidebar-title">Difficulty</div>
     <div class="legend-item"><span class="difficulty-dot easy"></span> Easy</div>
@@ -501,10 +499,25 @@ pre.code-block {
       <div class="ov-title">Fibonacci, Prime etc.</div>
       <div class="ov-diff" style="color:var(--accent3)">● Easy — Logic snippets</div>
     </div>
+    <div class="overview-card" onclick="showSection('q3b')">
+      <div class="ov-q">Q3b</div>
+      <div class="ov-title">Factorial, Currency, Quadratic, Temp</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — Math operations</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q4')">
+      <div class="ov-q">Q4</div>
+      <div class="ov-title">Server Controls + Validation</div>
+      <div class="ov-diff" style="color:var(--accent3)">● Easy — No database</div>
+    </div>
     <div class="overview-card" onclick="showSection('q5')">
       <div class="ov-q">Q5</div>
       <div class="ov-title">Full SQL CRUD</div>
       <div class="ov-diff" style="color:var(--accent2)">● Medium — Must know</div>
+    </div>
+    <div class="overview-card" onclick="showSection('q5b')">
+      <div class="ov-q">Q5b</div>
+      <div class="ov-title">Disconnected DB (DataSet)</div>
+      <div class="ov-diff" style="color:var(--accent2)">● Medium — DataAdapter</div>
     </div>
     <div class="overview-card" onclick="showSection('q6')">
       <div class="ov-q">Q6</div>
@@ -525,6 +538,17 @@ pre.code-block {
 
   <div class="warn-box">
     <strong>The ONE pattern to memorize cold:</strong> SqlConnection → SqlCommand → Parameters.AddWithValue → con.Open() → ExecuteNonQuery() → con.Close(). This appears in Q2 and Q5.
+  </div>
+
+  <div class="info-box" style="margin-top:0">
+    <strong>🖱️ Visual Studio UI Quick Reference</strong><br><br>
+    <strong>Toolbox</strong> (Ctrl+Alt+X) — drag-and-drop ASP.NET controls (TextBox, Button, GridView, Label, Validators) onto your .aspx page in Design view.<br><br>
+    <strong>Design view</strong> — switch using the Source | Split | Design tabs at the bottom of the editor. Drag controls here; VS writes the tags for you.<br><br>
+    <strong>Double-click a control</strong> in Design view → VS auto-creates + wires the event handler in code-behind.<br><br>
+    <strong>Properties panel</strong> (F4) — set control IDs, text, colors without touching Source view. The <strong>⚡ lightning bolt</strong> tab shows all events.<br><br>
+    <strong>Smart tag (▶)</strong> — appears top-right of GridView/other controls in Design view. Click it for Edit Columns, Auto Format etc.<br><br>
+    <strong>Solution Explorer</strong> — right-click project to Add New Item (Class, Web Form, JS File, Global.asax). Double-click any file to open it.<br><br>
+    <strong>F7</strong> = jump from .aspx → .aspx.cs &nbsp;|&nbsp; <strong>Shift+F7</strong> = jump back &nbsp;|&nbsp; <strong>F5</strong> = Run
   </div>
 
   <div class="steps">
@@ -936,6 +960,169 @@ lblResult.Text = <span class="str">"Reversed: "</span> + rev + <span class="str"
   </div>
 </div>
 
+<!-- ═══ Q3b ═══ -->
+<div id="q3b" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 3b</div>
+      <div class="section-title">Factorial, Currency, Quadratic, Temperature</div>
+      <div class="section-subtitle">Four operations in one page — same pattern as Q3</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q3b-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q3b-code')">Code</div>
+    <div class="tab" onclick="switchTab(this, 'q3b-memory')">Memory Cards</div>
+  </div>
+
+  <div id="q3b-steps" class="tab-content active">
+    <div class="info-box">Same structure as Q3 — one Submit button, multiple Label outputs. Key additions: <strong>for loop</strong> for factorial, <strong>Math.Abs()</strong> for quadratic discriminant.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Create Default.aspx with 7 inputs + 4 labels</div><div class="step-desc">TextBoxes: <code>factorial</code>, <code>currency</code> (jpy/inr), <code>money</code>, <code>number1/2/3</code> (a,b,c), <code>fc</code> (F/C), <code>temp</code>. Labels: <code>lblResult</code> through <code>lblResult3</code>.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Factorial — for loop</div><div class="step-desc"><code>int.TryParse(factorial.Text, out factinput);</code> then <code>for (i=1; i&lt;=factinput; i++) f = f * i;</code> — start <code>f=1</code>.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Currency conversion — if/else on Text</div><div class="step-desc"><code>if(currency.Text == "jpy")</code> → multiply by 0.57 for INR. Else multiply by 1.76 for JPY. Use <code>double.TryParse</code> for amount.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Quadratic — discriminant check</div><div class="step-desc">Calculate <code>sqr = b²-4ac</code>. Use <code>Math.Abs(sqr)</code> for sqrt_val. If <code>sqr &gt; 0</code> → real roots; else → complex roots. Check <code>if(num1==0)</code> first (invalid).</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Temperature — if/else on fc.Text</div><div class="step-desc"><code>if(fc.Text == "F")</code> → C = (F-32)*5/9. Else → F = C*9/5 + 32. Use <code>double.TryParse</code>.</div></div></div>
+    </div>
+    <div class="vs-tip">🖱️ <strong>VS UI:</strong> Drag 7 TextBoxes and a Button from Toolbox → Design view. Double-click the Button to auto-create <code>BtnSubmit_Click</code>. Add 4 Labels for output.</div>
+  </div>
+
+  <div id="q3b-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx.cs — BtnSubmit_Click</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// FACTORIAL
+int factinput;
+int.TryParse(factorial.Text, out factinput);
+int f = 1;
+for (int i = 1; i &lt;= factinput; i++) f = f * i;
+lblResult.Text = "Factorial of " + factinput + "! is: " + f;
+
+// CURRENCY
+double amount;
+double.TryParse(money.Text, out amount);
+if (currency.Text == "jpy")
+    lblResult1.Text = "Result: inr " + (0.57 * amount);
+else
+    lblResult1.Text = "Result: jpy " + (1.76 * amount);
+
+// QUADRATIC
+int num1, num2, num3;
+int.TryParse(number1.Text, out num1);
+int.TryParse(number2.Text, out num2);
+int.TryParse(number3.Text, out num3);
+if (num1 == 0) { lblResult2.Text = "Invalid"; }
+int sqr = num2 * num2 - 4 * num1 * num3;
+double sqrt_val = Math.Abs(sqr);
+if (sqr &gt; 0)
+    lblResult2.Text = "Roots are real: " +
+        (-num2 + sqrt_val)/(2*num1) + " and " + (-num2 - sqrt_val)/(2*num1);
+else
+    lblResult2.Text = "Roots are complex: " +
+        (-(double)num2/(2*num1)) + " ± i" + sqrt_val/(2*num1);
+
+// TEMPERATURE
+double numbergiven;
+double.TryParse(temp.Text, out numbergiven);
+if (fc.Text == "F")
+    lblResult3.Text = "Celsius: " + ((numbergiven - 32) * 5.0 / 9.0) + "C";
+else
+    lblResult3.Text = "Fahrenheit: " + (numbergiven * 9 / 5 + 32) + "F";</pre>
+    </div>
+  </div>
+
+  <div id="q3b-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3b · Factorial</div><div class="card-front">What's the starting value of f in factorial?</div><div class="card-back"><code>int f = 1</code> — NOT 0! (0 × anything = 0). Loop: <code>for(i=1; i&lt;=input; i++) f = f * i;</code></div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3b · Quadratic</div><div class="card-front">What does Math.Abs() do in the quadratic calculation?</div><div class="card-back">Gets the absolute (positive) value of the discriminant (b²-4ac) before taking its square root — prevents errors with negative values when computing complex roots.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3b · Currency</div><div class="card-front">How do you check which currency to convert?</div><div class="card-back"><code>if(currency.Text == "jpy")</code> → convert to INR (×0.57). Else convert to JPY (×1.76). Plain string comparison on the TextBox value.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q3b · Temperature</div><div class="card-front">Celsius to Fahrenheit formula?</div><div class="card-back"><code>F = C × 9/5 + 32</code>. Fahrenheit to Celsius: <code>C = (F-32) × 5/9</code>. Check <code>fc.Text == "F"</code> to know input is Fahrenheit.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Q4 ═══ -->
+<div id="q4" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 4</div>
+      <div class="section-title">Server Controls with Validation</div>
+      <div class="section-subtitle">TextBox, DropDownList, RadioButtonList + validators — no database</div>
+    </div>
+    <span class="diff-badge diff-easy">EASY</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q4-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q4-code')">Code</div>
+    <div class="tab" onclick="switchTab(this, 'q4-memory')">Memory Cards</div>
+  </div>
+
+  <div id="q4-steps" class="tab-content active">
+    <div class="info-box">This is a pure UI + validation practical — <strong>no database</strong>. Focus on the 3 validator types and <code>Page.IsValid</code> check.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Add TextBox controls for Name and Age</div><div class="step-desc">Pair each with a <code>RequiredFieldValidator</code>. For Age, also add a <code>RangeValidator</code> with <code>MinimumValue="1" MaximumValue="100" Type="Integer"</code>.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Add DropDownList for Country</div><div class="step-desc">First item: <code>Value=""</code> (the "–Select–" placeholder). Add <code>RequiredFieldValidator</code> with <code>InitialValue=""</code> — this triggers if user leaves placeholder selected.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Add RadioButtonList for Gender</div><div class="step-desc">Items: Male / Female. Pair with <code>RequiredFieldValidator</code> — triggers if no radio is selected. <code>rblGender.SelectedValue</code> gets the chosen value.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Handle button click with Page.IsValid</div><div class="step-desc"><code>if (Page.IsValid) { lblResult.Text = "Name: " + txtName.Text + ... }</code> — server-side check after validators run.</div></div></div>
+    </div>
+    <div class="vs-tip">🖱️ <strong>VS UI:</strong> Drag DropDownList → smart tag (▶) → Edit Items to add ListItem values. Drag RadioButtonList → smart tag → Edit Items. All validators are in Toolbox under "Validation".</div>
+  </div>
+
+  <div id="q4-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx — Key Validators</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>&lt;asp:RequiredFieldValidator
+    ControlToValidate="txtName"
+    ErrorMessage="Name is required!" ForeColor="Red" runat="server" /&gt;
+
+&lt;asp:RangeValidator
+    ControlToValidate="txtAge"
+    MinimumValue="1" MaximumValue="100" Type="Integer"
+    ErrorMessage="Age must be between 1 and 100!" ForeColor="Red" runat="server" /&gt;
+
+&lt;asp:DropDownList ID="ddlCountry" runat="server"&gt;
+    &lt;asp:ListItem Text="--Select--" Value="" /&gt;
+    &lt;asp:ListItem Text="India" /&gt;
+    &lt;asp:ListItem Text="Japan" /&gt;
+&lt;/asp:DropDownList&gt;
+&lt;asp:RequiredFieldValidator
+    ControlToValidate="ddlCountry" InitialValue=""
+    ErrorMessage="Please select a country!" ForeColor="Red" runat="server" /&gt;
+
+&lt;asp:RadioButtonList ID="rblGender" runat="server"&gt;
+    &lt;asp:ListItem&gt;Male&lt;/asp:ListItem&gt;
+    &lt;asp:ListItem&gt;Female&lt;/asp:ListItem&gt;
+&lt;/asp:RadioButtonList&gt;
+&lt;asp:RequiredFieldValidator
+    ControlToValidate="rblGender"
+    ErrorMessage="Please select gender!" ForeColor="Red" runat="server" /&gt;</pre>
+    </div>
+    <div class="code-file" style="margin-top:12px">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx.cs — BtnSubmit_Click</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>protected void BtnSubmit_Click(object sender, EventArgs e)
+{
+    if (Page.IsValid)
+    {
+        lblResult.Text = "Form submitted successfully!&lt;br/&gt;" +
+            "Name: " + txtName.Text + "&lt;br/&gt;" +
+            "Age: " + txtAge.Text + "&lt;br/&gt;" +
+            "Country: " + ddlCountry.SelectedValue + "&lt;br/&gt;" +
+            "Gender: " + rblGender.SelectedValue;
+    }
+}</pre>
+    </div>
+  </div>
+
+  <div id="q4-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q4 · Validators</div><div class="card-front">What's the difference between RequiredFieldValidator and RangeValidator?</div><div class="card-back">Required = field cannot be empty. Range = numeric value must fall between min and max. Use both on the Age field.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q4 · DropDown</div><div class="card-front">How do you validate a DropDownList?</div><div class="card-back">Add <code>RequiredFieldValidator</code> with <code>InitialValue=""</code> — this matches the placeholder item's Value. Triggers if user never changes from --Select--.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q4 · Page.IsValid</div><div class="card-front">Why check Page.IsValid in code-behind?</div><div class="card-back">Even after client-side validation, always check server-side: <code>if (Page.IsValid)</code>. Prevents invalid data if JavaScript is disabled.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q4 · RadioButtonList</div><div class="card-front">How do you read the selected radio button value?</div><div class="card-back"><code>rblGender.SelectedValue</code> — returns the text of the chosen ListItem (e.g. "Male" or "Female").</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ Q5 ═══ -->
 <div id="q5" class="practical-section">
   <div class="section-header">
@@ -965,20 +1152,21 @@ lblResult.Text = <span class="str">"Reversed: "</span> + rev + <span class="str"
         &lt;asp:BoundField DataField="name" HeaderText="Name" /&gt;
         &lt;asp:CommandField ShowEditButton="True" ShowDeleteButton="True" /&gt;
     &lt;/Columns&gt;
-&lt;/asp:GridView&gt;</div></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">RowEditing — enter edit mode</div><div class="step-desc">Just set EditIndex to the clicked row's index and rebind.</div><div class="step-code">protected void GridViewStudents_RowEditing(object sender, GridViewEditEventArgs e)
+&lt;/asp:GridView&gt;</div><div class="step-note">🖱️ <strong>GridView smart tag:</strong> Drag a GridView from Toolbox onto the page. Click the <strong>▶ smart tag arrow</strong> at its top-right → click <em>Edit Columns</em>. In the dialog: select <em>BoundField</em> from "Available fields" and click <strong>Add</strong> to add columns. Add a <em>CommandField</em> and check both <em>Show Edit button</em> and <em>Show Delete button</em>. Set <code>DataKeyNames="id"</code> in the Properties panel (F4).</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Wire up GridView events in Properties panel</div><div class="step-desc">Instead of typing event names manually in the ASPX, you can wire them in VS.</div><div class="step-note">🖱️ <strong>Events panel:</strong> Click the GridView in Design view → open Properties panel (F4) → click the <strong>⚡ lightning bolt icon</strong> to switch to Events view. You'll see RowEditing, RowUpdating, RowDeleting, RowCancelingEdit. Double-click each one — VS creates the empty handler method and wires it automatically.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">RowEditing — enter edit mode</div><div class="step-desc">Just set EditIndex to the clicked row's index and rebind.</div><div class="step-code">protected void GridViewStudents_RowEditing(object sender, GridViewEditEventArgs e)
 {
     GridViewStudents.EditIndex = e.NewEditIndex;
     LoadStudents();
 }</div></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">RowCancelingEdit — exit edit mode</div><div class="step-desc">Set EditIndex back to -1 (meaning no row is in edit mode).</div><div class="step-code">GridViewStudents.EditIndex = -1;
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">RowCancelingEdit — exit edit mode</div><div class="step-desc">Set EditIndex back to -1 (meaning no row is in edit mode).</div><div class="step-code">GridViewStudents.EditIndex = -1;
 LoadStudents();</div></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">RowUpdating — the tricky one</div><div class="step-desc">Get the ID from DataKeys, extract new text from the row's TextBoxes (they appear in edit mode), run UPDATE query.</div><div class="step-code">int id = Convert.ToInt32(GridViewStudents.DataKeys[e.RowIndex].Value);
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">RowUpdating — the tricky one</div><div class="step-desc">Get the ID from DataKeys, extract new text from the row's TextBoxes (they appear in edit mode), run UPDATE query.</div><div class="step-code">int id = Convert.ToInt32(GridViewStudents.DataKeys[e.RowIndex].Value);
 string name = ((TextBox)GridViewStudents.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
 <span class="cm">// Then: SqlConnection → UPDATE query → ExecuteNonQuery</span>
 GridViewStudents.EditIndex = -1;
 LoadStudents();</div><div class="step-note"><code>DataKeys[e.RowIndex].Value</code> → gets the id of that row. <code>Cells[1].Controls[0]</code> → first control (TextBox) in column index 1.</div></div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">RowDeleting — simplest event</div><div class="step-desc">Get the id from DataKeys, run DELETE query.</div><div class="step-code">string id = GridViewStudents.DataKeys[e.RowIndex].Value.ToString();
+      <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">RowDeleting — simplest event</div><div class="step-desc">Get the id from DataKeys, run DELETE query.</div><div class="step-code">string id = GridViewStudents.DataKeys[e.RowIndex].Value.ToString();
 <span class="cm">// DELETE FROM students WHERE id = @id</span>
 LoadStudents();</div></div></div>
     </div>
@@ -1015,6 +1203,116 @@ LoadStudents();</div></div></div>
   </div>
 </div>
 
+<!-- ═══ Q5b ═══ -->
+<div id="q5b" class="practical-section">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="q-label">PRACTICAL 5b</div>
+      <div class="section-title">Disconnected Database CRUD (DataSet + DataAdapter)</div>
+      <div class="section-subtitle">Same form as Q5 but uses DataSet instead of SqlDataReader</div>
+    </div>
+    <span class="diff-badge diff-medium">MEDIUM</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this, 'q5b-steps')">Step-by-Step</div>
+    <div class="tab" onclick="switchTab(this, 'q5b-code')">Code</div>
+    <div class="tab" onclick="switchTab(this, 'q5b-memory')">Memory Cards</div>
+  </div>
+
+  <div id="q5b-steps" class="tab-content active">
+    <div class="info-box"><strong>Connected (Q5) vs Disconnected (Q5b):</strong> Q5 keeps the connection open while reading. Q5b fills a <code>DataSet</code> offline, stores it in <code>ViewState</code>, then pushes changes back with <code>da.Update()</code>.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">LoadStudents — use DataAdapter instead of DataReader</div><div class="step-desc"><code>SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM students", con);</code> then <code>da.Fill(ds, "students");</code>. Store in <code>ViewState["DataSet"] = ds;</code>. Bind: <code>GridView.DataSource = ds.Tables["students"];</code></div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">BtnSubmit_Click — add row to DataSet then da.Update()</div><div class="step-desc">Get <code>ds</code> from ViewState. Create <code>DataRow row = ds.Tables["students"].NewRow();</code>, set fields, <code>Rows.Add(row)</code>. Then <code>SqlCommandBuilder cb = new SqlCommandBuilder(da); da.Update(ds, "students");</code></div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">RowUpdating — use FindControl, not Cells[]</div><div class="step-desc">Use TemplateField in ASPX (not BoundField). In RowUpdating: <code>((TextBox)GridView.Rows[index].FindControl("txtEditName")).Text</code> — more reliable than Cells[n].Controls[0].</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">RowDeleting — call .Delete() on DataRow</div><div class="step-desc"><code>ds.Tables["students"].Rows[e.RowIndex].Delete();</code> then <code>da.Update(ds, "students");</code> — marks the row as deleted and syncs to DB.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">ASPX uses TemplateField instead of BoundField for editable columns</div><div class="step-desc">Each editable column needs <code>&lt;ItemTemplate&gt;</code> (display) and <code>&lt;EditItemTemplate&gt;</code> (edit TextBox with <code>Text='&lt;%# Bind("name") %&gt;'</code>).</div></div></div>
+    </div>
+    <div class="vs-tip">🖱️ <strong>VS UI:</strong> GridView smart tag (▶) → Edit Columns → switch BoundField to TemplateField for columns you want editable.</div>
+  </div>
+
+  <div id="q5b-code" class="tab-content">
+    <div class="code-file">
+      <div class="code-file-header"><span class="code-file-name">Default.aspx.cs — Disconnected Pattern</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>private void LoadStudents()
+{
+    using (SqlConnection con = new SqlConnection(connStr))
+    {
+        SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM students", con);
+        SqlCommandBuilder cb = new SqlCommandBuilder(da);
+        DataSet ds = new DataSet();
+        da.Fill(ds, "students");
+        ViewState["DataSet"] = ds;         // store offline
+        GridViewStudents.DataSource = ds.Tables["students"];
+        GridViewStudents.DataBind();
+    }
+}
+
+protected void BtnSubmit_Click(object sender, EventArgs e)
+{
+    DataSet ds = (DataSet)ViewState["DataSet"];
+    DataRow row = ds.Tables["students"].NewRow();
+    row["name"] = txtName.Text;
+    row["age"]  = txtAge.Text;
+    row["department"] = ddlDept.SelectedItem.Text;
+    row["gender"]     = rblGender.SelectedItem.Text;
+    ds.Tables["students"].Rows.Add(row);
+    using (SqlConnection con = new SqlConnection(connStr))
+    {
+        SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM students", con);
+        SqlCommandBuilder cb = new SqlCommandBuilder(da);
+        da.Update(ds, "students");         // push to DB
+    }
+    ViewState["DataSet"] = ds;
+    LoadStudents();
+}
+
+protected void GridViewStudents_RowUpdating(object sender, GridViewUpdateEventArgs e)
+{
+    DataSet ds = (DataSet)ViewState["DataSet"];
+    int index = e.RowIndex;
+    DataRow row = ds.Tables["students"].Rows[index];
+    row["name"] = ((TextBox)GridViewStudents.Rows[index].FindControl("txtEditName")).Text;
+    row["age"]  = ((TextBox)GridViewStudents.Rows[index].FindControl("txtEditAge")).Text;
+    row["department"] = ((TextBox)GridViewStudents.Rows[index].FindControl("txtEditDept")).Text;
+    row["gender"]     = ((TextBox)GridViewStudents.Rows[index].FindControl("txtEditGender")).Text;
+    using (SqlConnection con = new SqlConnection(connStr))
+    {
+        SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM students", con);
+        new SqlCommandBuilder(da);
+        da.Update(ds, "students");
+    }
+    ViewState["DataSet"] = ds;
+    GridViewStudents.EditIndex = -1;
+    LoadStudents();
+}
+
+protected void GridViewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
+{
+    DataSet ds = (DataSet)ViewState["DataSet"];
+    ds.Tables["students"].Rows[e.RowIndex].Delete();
+    using (SqlConnection con = new SqlConnection(connStr))
+    {
+        SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM students", con);
+        new SqlCommandBuilder(da);
+        da.Update(ds, "students");
+    }
+    ViewState["DataSet"] = ds;
+    LoadStudents();
+}</pre>
+    </div>
+  </div>
+
+  <div id="q5b-memory" class="tab-content">
+    <div class="memory-grid">
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5b · Disconnected</div><div class="card-front">What does "disconnected" mean in ADO.NET?</div><div class="card-back">Data is loaded into a <code>DataSet</code> in memory — the DB connection is closed. Changes are made offline, then pushed back with <code>da.Update()</code>.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5b · DataSet</div><div class="card-front">How is DataSet different from DataReader?</div><div class="card-back">DataReader = forward-only, connection stays open, one row at a time. DataSet = full table in memory, connection closed, random access, can be stored in ViewState.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5b · SqlCommandBuilder</div><div class="card-front">What does SqlCommandBuilder do?</div><div class="card-back">Auto-generates INSERT/UPDATE/DELETE SQL commands for the DataAdapter — you don't write them manually. Required when using <code>da.Update()</code>.</div></div>
+      <div class="memory-card" onclick="flipCard(this)"><div class="card-q">Q5b · ViewState</div><div class="card-front">Why store DataSet in ViewState?</div><div class="card-back">ASP.NET is stateless — each postback loses memory. ViewState persists data between postbacks without re-querying the DB.</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ Q6 ═══ -->
 <div id="q6" class="practical-section">
   <div class="section-header">
@@ -1033,7 +1331,7 @@ LoadStudents();</div></div></div>
   <div id="q6-steps" class="tab-content active">
     <div class="info-box"><strong>Key insight:</strong> AngularJS runs entirely in the browser — no server postbacks, no C#. The {{ }} braces display scope variables live as you type.</div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Include AngularJS CDN in your page</div><div class="step-code">&lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"&gt;&lt;/script&gt;</div></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Include AngularJS CDN in your page</div><div class="step-code">&lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"&gt;&lt;/script&gt;</div><div class="step-note">🖱️ <strong>VS tip:</strong> In Solution Explorer, right-click your project → <em>Add → New Item</em> → select <em>JavaScript File</em> → name it <code>app.js</code> → Add. It appears in Solution Explorer — double-click to open and edit.</div></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create app.js with module + controller</div><div class="step-code">var app = angular.module('myapp', []);
 app.controller('MyController', function ($scope) {
     $scope.name = "KC";
@@ -1041,10 +1339,10 @@ app.controller('MyController', function ($scope) {
         $scope.greeting = "Hello " + $scope.name + " !";
     };
 });</div></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Wire up HTML with Angular directives</div><div class="step-code">&lt;div ng-app="myapp" ng-controller="MyController"&gt;
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Wire up HTML with Angular directives</div><div class="step-desc">Use plain HTML (not asp: controls) — VS doesn't have drag-and-drop for Angular directives, type these manually in Source view.</div><div class="step-code">&lt;div ng-app="myapp" ng-controller="MyController"&gt;
     &lt;input type="text" ng-model="name" ng-change="updateGreeting()" /&gt;
     &lt;h3&gt;Output: {{ greeting }}&lt;/h3&gt;
-&lt;/div&gt;</div><div class="step-note"><code>ng-app</code> = app name, <code>ng-controller</code> = which controller, <code>ng-model</code> = binds input to $scope.name, <code>ng-change</code> = fires on every keystroke.</div></div></div>
+&lt;/div&gt;</div><div class="step-note"><code>ng-app</code> = app name, <code>ng-controller</code> = which controller, <code>ng-model</code> = binds input to $scope.name, <code>ng-change</code> = fires on every keystroke. Use plain HTML <code>&lt;input&gt;</code>, NOT <code>&lt;asp:TextBox&gt;</code> — AngularJS works with standard HTML only.</div></div></div>
     </div>
   </div>
   <div id="q6-code" class="tab-content">
@@ -1094,15 +1392,8 @@ app.<span class="fn">controller</span>(<span class="str">'MyController'</span>, 
   <div id="q7-steps" class="tab-content active">
     <div class="warn-box"><strong>Don't try to memorize every line.</strong> Understand: MongoHelper is a helper class that wraps all DB calls. Default.aspx.cs just calls m.InsertUser(), m.GetAllUsers() etc. That's the key structure.</div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install MongoDB C# Driver via NuGet</div><div class="step-desc">In Visual Studio: Tools → NuGet Package Manager → Manage NuGet Packages → Browse → search "MongoDB.Driver" → Install.</div></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create the User model class</div><div class="step-desc">This is a plain C# class that represents one document in MongoDB. [BsonId] marks the primary key field.</div><div class="step-code">public class User
-{
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public int Age { get; set; }
-}</div></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install MongoDB C# Driver via NuGet</div><div class="step-desc">In Visual Studio: Tools → NuGet Package Manager → Manage NuGet Packages for Solution → Browse tab → search <code>MongoDB.Driver</code> → click Install.</div><div class="step-note">🖱️ <strong>NuGet UI tip:</strong> Alternatively, right-click your project in <strong>Solution Explorer</strong> → <em>Manage NuGet Packages</em>. This opens the NuGet UI — search "MongoDB.Driver", select it, and click <strong>Install</strong>. VS will automatically add the reference and download the package. You'll see it appear under <em>References</em> in Solution Explorer.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create MongoHelper.cs — a new class file</div><div class="step-desc">Right-click your project in Solution Explorer → Add → New Item → Class → name it <code>MongoHelper.cs</code> → Add.</div><div class="step-note">🖱️ <strong>VS UI tip:</strong> After adding the file, it opens automatically. You'll see an empty class. Add the User class in the same file below MongoHelper — no need for a separate file unless asked.</div></div></div>
       <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Create MongoHelper.cs — the wrapper class</div><div class="step-desc">This handles the connection and all CRUD methods. The constructor connects to MongoDB.</div><div class="step-code">public MongoHelper()
 {
     var client = new MongoClient("mongodb://localhost:27017");
@@ -1218,7 +1509,7 @@ private void BindGrid()
   <div id="q8-steps" class="tab-content active">
     <div class="info-box"><strong>Flask is the simplest practical.</strong> It's just Python — no C#, no GridViews. Just @app.route("/path") → return "string".</div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install Flask</div><div class="step-desc">Open terminal/command prompt: <code>pip install flask</code></div></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Install Flask (Python only)</div><div class="step-desc">Open terminal/command prompt: <code>pip install flask</code>. Then create <code>app.py</code> in a folder and run it with <code>python app.py</code>.</div><div class="step-note">🖱️ <strong>VS tip for the ASP.NET equivalent:</strong> In Solution Explorer, right-click project → <em>Add → New Item</em> → search "Global Application Class" → it adds <code>Global.asax</code> automatically with the Application_Start method ready to fill.</div></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Create app.py</div><div class="step-code">from flask import Flask
 app = Flask(__name__)
 
@@ -1238,7 +1529,7 @@ if __name__ == "__main__":
     app.run(debug=True)</div></div></div>
       <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">The ASP.NET equivalent (Global.asax)</div><div class="step-desc">In Visual Studio, routing is done in Global.asax.cs using RouteTable. Each Flask route maps to an ASPX page.</div><div class="step-code">routes.MapPageRoute("HomeRoute", "", "~/page/home.aspx");
 routes.MapPageRoute("AboutRoute", "about", "~/page/about.aspx");
-routes.MapPageRoute("UserRoute", "user/{name}", "~/page/user.aspx");</div></div></div>
+routes.MapPageRoute("UserRoute", "user/{name}", "~/page/user.aspx");</div><div class="step-note">🖱️ <strong>VS tip:</strong> To add new ASPX pages (home.aspx, about.aspx, user.aspx), right-click the <code>page</code> folder in Solution Explorer → <em>Add → New Item → Web Form</em>. VS creates the .aspx + .aspx.cs pair together automatically.</div></div></div>
       <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Read route parameter in user.aspx.cs</div><div class="step-code">string name = Page.RouteData.Values["name"] as string;
 lblUser.Text = $"Hello, {name}";</div><div class="step-note"><code>Page.RouteData.Values["name"]</code> matches the <code>{name}</code> placeholder in the route definition.</div></div></div>
     </div>
@@ -1295,10 +1586,20 @@ app = <span class="fn">Flask</span>(__name__)
       <tr><td>Q2b</td><td><code>double.TryParse(text, out x)</code></td><td>Parse safely — sets 0 if empty</td></tr>
       <tr><td>Q3</td><td><code>a = b; b = c;</code></td><td>Fibonacci shift after each iteration</td></tr>
       <tr><td>Q3</td><td><code>if (f == 2)</code> → Prime</td><td>Count factors; prime has exactly 2</td></tr>
+      <tr><td>Q3b</td><td><code>int f = 1; for(i=1;i&lt;=n;i++) f*=i;</code></td><td>Factorial — start f at 1, not 0</td></tr>
+      <tr><td>Q3b</td><td><code>Math.Abs(sqr)</code></td><td>Absolute value of discriminant for quadratic</td></tr>
+      <tr><td>Q3b</td><td><code>if(currency.Text == "jpy")</code></td><td>String compare for currency direction</td></tr>
+      <tr><td>Q4</td><td><code>Page.IsValid</code></td><td>Server-side check after all validators run</td></tr>
+      <tr><td>Q4</td><td><code>InitialValue=""</code> on RequiredFieldValidator</td><td>Validates DropDownList (match placeholder Value)</td></tr>
+      <tr><td>Q4</td><td><code>rblGender.SelectedValue</code></td><td>Get chosen RadioButtonList item</td></tr>
       <tr><td>Q5</td><td><code>DataKeyNames="id"</code></td><td>Store primary key invisibly in GridView</td></tr>
       <tr><td>Q5</td><td><code>DataKeys[e.RowIndex].Value</code></td><td>Get the row's primary key</td></tr>
       <tr><td>Q5</td><td><code>GridView.EditIndex = -1</code></td><td>Exit edit mode on GridView</td></tr>
       <tr><td>Q5</td><td><code>((TextBox)row.Cells[1].Controls[0]).Text</code></td><td>Get TextBox value from edit row</td></tr>
+      <tr><td>Q5b</td><td><code>da.Fill(ds, "students")</code></td><td>Fill DataSet offline from DB</td></tr>
+      <tr><td>Q5b</td><td><code>new SqlCommandBuilder(da)</code></td><td>Auto-generates SQL for da.Update()</td></tr>
+      <tr><td>Q5b</td><td><code>da.Update(ds, "students")</code></td><td>Pushes DataSet changes back to DB</td></tr>
+      <tr><td>Q5b</td><td><code>ViewState["DataSet"] = ds</code></td><td>Persist DataSet between postbacks</td></tr>
       <tr><td>Q6</td><td><code>ng-model="name"</code></td><td>Two-way bind input to $scope variable</td></tr>
       <tr><td>Q6</td><td><code>{{ greeting }}</code></td><td>Display $scope variable in HTML</td></tr>
       <tr><td>Q6</td><td><code>angular.module('myapp', [])</code></td><td>Create Angular app</td></tr>
@@ -1324,16 +1625,19 @@ app = <span class="fn">Flask</span>(__name__)
     <button class="drawer-close-btn" onclick="closeDrawer()">✕</button>
   </div>
   <div class="sidebar-title">Practicals</div>
-  <div class="nav-item active" onclick="showSectionMobile('overview')"><span>🏠</span> Overview <span class="nav-badge">start</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q1')"><span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints <span class="nav-badge">easy</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q2')"><span class="difficulty-dot medium"></span> Q2 — Phone Book <span class="nav-badge">med</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q2b')"><span class="difficulty-dot easy"></span> Q2b — Pythagoras <span class="nav-badge">easy</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q3')"><span class="difficulty-dot easy"></span> Q3 — Fibonacci etc. <span class="nav-badge">easy</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q5')"><span class="difficulty-dot medium"></span> Q5 — SQL CRUD <span class="nav-badge">med</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q6')"><span class="difficulty-dot easy"></span> Q6 — AngularJS SPA <span class="nav-badge">easy</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q7')"><span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD <span class="nav-badge">hard</span></div>
-  <div class="nav-item" onclick="showSectionMobile('q8')"><span class="difficulty-dot easy"></span> Q8 — Flask App <span class="nav-badge">easy</span></div>
-  <div class="nav-item" onclick="showSectionMobile('cheatsheet')"><span>📋</span> Cheat Sheet <span class="nav-badge">key</span></div>
+  <div class="nav-item active" data-section="overview" onclick="showSection('overview')"><span>🏠</span> Overview <span class="nav-badge">start</span></div>
+  <div class="nav-item" data-section="q1" onclick="showSection('q1')"><span class="difficulty-dot easy"></span> Q1 — Product of 4 Ints <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q2" onclick="showSection('q2')"><span class="difficulty-dot medium"></span> Q2 — Phone Book <span class="nav-badge">med</span></div>
+  <div class="nav-item" data-section="q2b" onclick="showSection('q2b')"><span class="difficulty-dot easy"></span> Q2b — Pythagoras <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q3" onclick="showSection('q3')"><span class="difficulty-dot easy"></span> Q3 — Fibonacci etc. <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q3b" onclick="showSection('q3b')"><span class="difficulty-dot easy"></span> Q3b — Factorial etc. <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q4" onclick="showSection('q4')"><span class="difficulty-dot easy"></span> Q4 — Server Controls <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q5" onclick="showSection('q5')"><span class="difficulty-dot medium"></span> Q5 — SQL CRUD <span class="nav-badge">med</span></div>
+  <div class="nav-item" data-section="q5b" onclick="showSection('q5b')"><span class="difficulty-dot medium"></span> Q5b — Disconnected DB <span class="nav-badge">med</span></div>
+  <div class="nav-item" data-section="q6" onclick="showSection('q6')"><span class="difficulty-dot easy"></span> Q6 — AngularJS SPA <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="q7" onclick="showSection('q7')"><span class="difficulty-dot hard"></span> Q7 — MongoDB CRUD <span class="nav-badge">hard</span></div>
+  <div class="nav-item" data-section="q8" onclick="showSection('q8')"><span class="difficulty-dot easy"></span> Q8 — Flask App <span class="nav-badge">easy</span></div>
+  <div class="nav-item" data-section="cheatsheet" onclick="showSection('cheatsheet')"><span>📋</span> Cheat Sheet <span class="nav-badge">key</span></div>
   <div class="sidebar-legend" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
     <div class="sidebar-title">Difficulty</div>
     <div class="legend-item"><span class="difficulty-dot easy"></span> Easy</div>
@@ -1344,22 +1648,24 @@ app = <span class="fn">Flask</span>(__name__)
 
 <!-- BOTTOM NAV (mobile) -->
 <nav class="bottom-nav" id="bottomNav">
-  <div class="bnav-item active" onclick="showSectionMobile('overview')"><div class="bnav-dot" style="background:var(--accent)"></div><span class="bnav-label">Home</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q1')"><div class="bnav-dot easy"></div><span class="bnav-label">Q1</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q2')"><div class="bnav-dot medium"></div><span class="bnav-label">Q2</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q2b')"><div class="bnav-dot easy"></div><span class="bnav-label">Q2b</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q3')"><div class="bnav-dot easy"></div><span class="bnav-label">Q3</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q5')"><div class="bnav-dot medium"></div><span class="bnav-label">Q5</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q6')"><div class="bnav-dot easy"></div><span class="bnav-label">Q6</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q7')"><div class="bnav-dot hard"></div><span class="bnav-label">Q7</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('q8')"><div class="bnav-dot easy"></div><span class="bnav-label">Q8</span></div>
-  <div class="bnav-item" onclick="showSectionMobile('cheatsheet')"><div class="bnav-dot" style="background:var(--accent2)"></div><span class="bnav-label">Sheet</span></div>
+  <div class="bnav-item active" data-section="overview" onclick="showSection('overview')"><div class="bnav-dot" style="background:var(--accent)"></div><span class="bnav-label">Home</span></div>
+  <div class="bnav-item" data-section="q1" onclick="showSection('q1')"><div class="bnav-dot easy"></div><span class="bnav-label">Q1</span></div>
+  <div class="bnav-item" data-section="q2" onclick="showSection('q2')"><div class="bnav-dot medium"></div><span class="bnav-label">Q2</span></div>
+  <div class="bnav-item" data-section="q2b" onclick="showSection('q2b')"><div class="bnav-dot easy"></div><span class="bnav-label">Q2b</span></div>
+  <div class="bnav-item" data-section="q3" onclick="showSection('q3')"><div class="bnav-dot easy"></div><span class="bnav-label">Q3</span></div>
+  <div class="bnav-item" data-section="q3b" onclick="showSection('q3b')"><div class="bnav-dot easy"></div><span class="bnav-label">Q3b</span></div>
+  <div class="bnav-item" data-section="q4" onclick="showSection('q4')"><div class="bnav-dot easy"></div><span class="bnav-label">Q4</span></div>
+  <div class="bnav-item" data-section="q5" onclick="showSection('q5')"><div class="bnav-dot medium"></div><span class="bnav-label">Q5</span></div>
+  <div class="bnav-item" data-section="q5b" onclick="showSection('q5b')"><div class="bnav-dot medium"></div><span class="bnav-label">Q5b</span></div>
+  <div class="bnav-item" data-section="q6" onclick="showSection('q6')"><div class="bnav-dot easy"></div><span class="bnav-label">Q6</span></div>
+  <div class="bnav-item" data-section="q7" onclick="showSection('q7')"><div class="bnav-dot hard"></div><span class="bnav-label">Q7</span></div>
+  <div class="bnav-item" data-section="q8" onclick="showSection('q8')"><div class="bnav-dot easy"></div><span class="bnav-label">Q8</span></div>
+  <div class="bnav-item" data-section="cheatsheet" onclick="showSection('cheatsheet')"><div class="bnav-dot" style="background:var(--accent2)"></div><span class="bnav-label">Sheet</span></div>
 </nav>
 
-<!-- wrap cheat table for mobile scroll -->
 <script>
-// wrap cheat table on load
 window.addEventListener('DOMContentLoaded', () => {
+  // wrap cheat table for horizontal scroll on mobile
   const t = document.querySelector('.cheat-table');
   if (t && !t.parentElement.classList.contains('cheat-table-wrap')) {
     const w = document.createElement('div');
@@ -1374,45 +1680,41 @@ function openDrawer() {
   document.getElementById('drawerOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 function closeDrawer() {
   document.getElementById('sidebarDrawer').classList.remove('open');
   document.getElementById('drawerOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-function showSectionMobile(id) {
-  showSectionById(id);
-  // update bottom nav
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
-  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
-  const idx = sectionIds.indexOf(id);
-  const bnavItems = document.querySelectorAll('.bnav-item');
-  if (idx >= 0 && bnavItems[idx]) bnavItems[idx].classList.add('active');
-  // update drawer nav items
-  document.querySelectorAll('#sidebarDrawer .nav-item').forEach(n => n.classList.remove('active'));
-  const drawerItems = document.querySelectorAll('#sidebarDrawer .nav-item');
-  if (idx >= 0 && drawerItems[idx]) drawerItems[idx].classList.add('active');
-  closeDrawer();
-}
 
+// ONE unified navigation function — works for desktop sidebar, drawer, bottom nav, overview cards
 function showSection(id) {
-  showSectionById(id);
-  // sync bottom nav too
-  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
-  const idx = sectionIds.indexOf(id);
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
-  const bnavItems = document.querySelectorAll('.bnav-item');
-  if (idx >= 0 && bnavItems[idx]) bnavItems[idx].classList.add('active');
-}
-
-function showSectionById(id) {
+  // 1. Hide all sections
   document.querySelectorAll('.practical-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.sidebar .nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  // highlight desktop sidebar
-  const allNavItems = document.querySelectorAll('.sidebar .nav-item');
-  const sectionIds = ['overview','q1','q2','q2b','q3','q5','q6','q7','q8','cheatsheet'];
-  const idx = sectionIds.indexOf(id);
-  if (idx >= 0 && allNavItems[idx]) allNavItems[idx].classList.add('active');
+
+  // 2. Show the target section
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+
+  // 3. Update desktop sidebar (uses data-section attribute)
+  document.querySelectorAll('.sidebar [data-section]').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id);
+  });
+
+  // 4. Update drawer nav (uses data-section attribute)
+  document.querySelectorAll('#sidebarDrawer [data-section]').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id);
+  });
+
+  // 5. Update bottom nav (uses data-section attribute)
+  document.querySelectorAll('.bottom-nav [data-section]').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id);
+  });
+
+  // 6. Close drawer if open
+  closeDrawer();
+
+  // 7. Scroll to top
   window.scrollTo(0, 0);
 }
 
