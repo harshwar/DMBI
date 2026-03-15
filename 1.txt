@@ -93,9 +93,6 @@ docker build -t java-docker-userprac3 .
 docker run -it java-docker-userprac3
 
 
---- Common Errors ---
-ERROR: Scanner hangs / no input possible
-FIX: Always use -it flag when running
 
 
 
@@ -257,28 +254,7 @@ Open browser: http://localhost:8001  → nginx welcome page
 docker service rm web web2
 docker swarm leave --force
 docker compose down
-
-
-
-
-
-
-
-
---- Common Errors ---
-ERROR: validating docker-compose.yml: additional properties 'toolbox' not allowed
-FIX: toolbox must have 2 spaces indent (same level as java_app), not 4
-
-
-ERROR: Implicit keys need to be on a single line
-FIX: Add space after every colon. version: '3' not version:'3'
-
-
-ERROR: This node is already part of a swarm
-FIX: docker swarm leave --force then docker swarm init
-
-
-
+
 
 ================================================================
 PRACTICAL 7 - Docker Networking (Bridge)
@@ -397,28 +373,7 @@ docker tag java-docker-userprac8 user/java-docker-userprac8
 docker push user/java-docker-userprac8
 kubectl apply -f deployment.yaml
 kubectl get pods
-kubectl logs <pod-name>
-
-
-
-
-
-
---- Common Errors ---
-ERROR: ErrImagePull / ImagePullBackOff
-FIX: Image name in deployment.yaml must exactly match what was pushed to Docker Hub
-FIX: Make sure docker push completed successfully before applying yaml
-
-
-ERROR: CrashLoopBackOff (for Scanner apps)
-FIX: Add stdin: true and tty: true under the container in deployment.yaml
-
-
-ERROR: pods "name" not found
-FIX: Typo in pod name. Copy exact name from kubectl get pods output.
-
-
-
+kubectl logs <pod-name>
 
 ================================================================
 PRACTICAL 9 - Kubernetes: Deploy Python App
@@ -479,16 +434,6 @@ docker push user/python-docker-userprac9
 kubectl apply -f deployment.yaml
 kubectl get pods
 kubectl logs <pod-name>
-
-
---- Common Errors ---
-ERROR: ErrImagePull / ImagePullBackOff
-FIX: Run docker login first, then tag and push again
-
-
-ERROR: CrashLoopBackOff
-FIX: Add stdin: true and tty: true in deployment.yaml
-
 
 
 
