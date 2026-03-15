@@ -161,7 +161,18 @@ app.listen(port, () => {
     console.log("server is running");
 });
 
+Dockerfile:
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY server.js .
+EXPOSE 3000
+CMD ["node", "server.js"]
 
+Commands:
+docker build -t node-docker-harshwardhanprac5 .
+docker run -p 3000:3000 node-docker-harshwardhanprac5
 --- Commands ---
 npm install express
 node server.js
