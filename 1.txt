@@ -1,0 +1,548 @@
+================================================================
+PRACTICAL 1 - Git Version Control (Basic)
+================================================================
+
+
+CHECKLIST:
+[ ] Initialize repo
+[ ] Stage and commit file
+[ ] Configure user
+[ ] Create and switch branch
+[ ] Merge branch
+
+
+--- Commands ---
+git init
+git status
+git add .
+git add -A
+git config --global user.email "email"
+git config --global user.name "user"
+git commit -m "updated"
+git config --list
+git restore --staged Text.txt
+git branch
+git branch feature-branch
+git checkout feature-branch
+git merge feature-branch
+
+
+================================================================
+PRACTICAL 2 - Git Remote (GitHub Push/Pull)
+================================================================
+
+
+CHECKLIST:
+[ ] Add remote origin
+[ ] Push to GitHub
+[ ] Pull from GitHub
+[ ] Switch branches
+
+
+--- Commands ---
+git remote add origin https://github.com/user/repo.git
+git branch
+git checkout master
+git push -u origin master
+git pull
+
+
+
+
+
+
+
+
+================================================================
+PRACTICAL 3 - Docker: Java App
+================================================================
+
+
+CHECKLIST:
+[ ] Create File.java
+[ ] Create Dockerfile
+[ ] Build image
+[ ] Run container
+
+
+--- File.java ---
+import java.util.Scanner;
+
+
+class file
+{
+    public static void main(String args[])
+    {
+        Scanner scan = new Scanner(System.in);
+        String name = scan.nextLine();
+        System.out.println("Name of user is: " + name);
+    }
+}
+
+
+--- Dockerfile ---
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY file.java .
+RUN javac file.java
+CMD ["java", "file"]
+
+
+--- Commands ---
+docker build -t java-docker-userprac3 .
+docker run -it java-docker-userprac3
+
+
+--- Common Errors ---
+ERROR: Scanner hangs / no input possible
+FIX: Always use -it flag when running
+
+
+
+
+================================================================
+PRACTICAL 4 - Docker: Python App
+================================================================
+
+
+CHECKLIST:
+[ ] Create app.py
+[ ] Create Dockerfile
+[ ] Build image
+[ ] Run container
+
+
+--- app.py ---
+print("I am confused")
+
+
+--- Dockerfile ---
+FROM python:3.11-slim
+WORKDIR /app
+COPY app.py .
+CMD ["python", "app.py"]
+
+
+--- Commands ---
+docker build -t python-docker-userprac4 .
+docker run -it python-docker-userprac4
+
+
+
+
+
+
+
+
+================================================================
+PRACTICAL 5 - Node.js Express Server
+================================================================
+
+
+CHECKLIST:
+[ ] Create server.js
+[ ] Install express
+[ ] Run server
+[ ] Verify in browser at localhost:3000
+
+
+--- server.js ---
+import express from "express";
+const app = express();
+const port = 3000;
+
+
+app.get("/", (req, res) => {
+    res.send("Hello People");
+});
+
+
+app.listen(port, () => {
+    console.log("server is running");
+});
+
+
+--- Commands ---
+npm install express
+node server.js
+
+
+--- Verify ---
+Open browser: http://localhost:3000
+Should show: Hello People
+Manager - installs Node.js dependencies
+
+
+
+
+================================================================
+PRACTICAL 6 - Docker Compose + Docker Swarm
+================================================================
+
+
+CHECKLIST:
+[ ] Create File.java
+[ ] Create Dockerfile
+[ ] Create docker-compose.yml
+[ ] Build image
+[ ] Run compose
+[ ] Initialize swarm
+[ ] Create services
+[ ] Verify services running
+[ ] Check in browser
+
+
+--- File.java ---
+import java.util.Scanner;
+
+
+class file
+{
+    public static void main(String args[])
+    {
+        Scanner scan = new Scanner(System.in);
+        String name = scan.nextLine();
+        System.out.println("Name of user is: " + name);
+    }
+}
+
+
+--- Dockerfile ---
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY file.java .
+RUN javac file.java
+CMD ["java", "file"]
+
+
+--- docker-compose.yml ---
+version: '3'
+services:
+  java_app:
+    build: .
+    image: java_docker_userprac6
+  toolbox:
+    image: busybox
+
+
+--- Commands ---
+docker build -t java-docker-userprac6 .
+docker compose up --build -d
+docker swarm init
+docker node ls
+docker service create --name web --replicas 1 --publish published=8000,target=80 nginx:alpine
+docker service ls
+docker service ps web
+docker service create --name web2 --replicas 2 --publish published=8001,target=80 nginx:alpine
+docker service ls
+
+
+--- Verify ---
+Open browser: http://localhost:8000  → nginx welcome page
+Open browser: http://localhost:8001  → nginx welcome page
+
+
+--- Stop / Cleanup ---
+docker service rm web web2
+docker swarm leave --force
+docker compose down
+
+
+
+
+
+
+
+
+--- Common Errors ---
+ERROR: validating docker-compose.yml: additional properties 'toolbox' not allowed
+FIX: toolbox must have 2 spaces indent (same level as java_app), not 4
+
+
+ERROR: Implicit keys need to be on a single line
+FIX: Add space after every colon. version: '3' not version:'3'
+
+
+ERROR: This node is already part of a swarm
+FIX: docker swarm leave --force then docker swarm init
+
+
+
+
+================================================================
+PRACTICAL 7 - Docker Networking (Bridge)
+================================================================
+
+
+CHECKLIST:
+[ ] Create File.java
+[ ] Create Dockerfile
+[ ] Build image
+[ ] Create custom bridge network
+[ ] List networks
+[ ] Inspect network
+[ ] Run container on custom network
+
+
+--- File.java ---
+import java.util.Scanner;
+
+
+class file
+{
+    public static void main(String args[])
+    {
+        Scanner scan = new Scanner(System.in);
+        String name = scan.nextLine();
+        System.out.println("Name of user is: " + name);
+    }
+}
+
+
+--- Dockerfile ---
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY file.java .
+RUN javac file.java
+CMD ["java", "file"]
+
+
+--- Commands ---
+docker build -t java-docker-userprac7 .
+docker network create --driver bridge my_bridge_harsh
+docker network ls
+docker network inspect my_bridge_user
+docker run -it --network my_bridge_userjava-docker-userprac7
+
+
+ 
+
+
+================================================================
+PRACTICAL 8 - Kubernetes: Deploy Java App
+================================================================
+
+
+CHECKLIST:
+[ ] Create File.java
+[ ] Create Dockerfile
+[ ] Build image
+[ ] Tag image with Docker Hub username
+[ ] Push image to Docker Hub
+[ ] Create deployment.yaml
+[ ] Apply deployment
+[ ] Verify pods running
+[ ] Check logs
+
+
+--- File.java ---
+import java.util.Scanner;
+
+
+class file
+{
+    public static void main(String args[])
+    {
+        Scanner scan = new Scanner(System.in);
+        String name = scan.nextLine();
+        System.out.println("Name of user is: " + name);
+    }
+}
+
+
+--- Dockerfile ---
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY file.java .
+RUN javac file.java
+CMD ["java", "file"]
+
+
+--- deployment.yaml ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javafirst-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: javafirst
+  template:
+    metadata:
+      labels:
+        app: javafirst
+    spec:
+      containers:
+        - name: javafirst
+          image: user/java-docker-userprac8
+          stdin: true
+          tty: true
+
+
+--- Commands ---
+docker build -t java-docker-userprac8 .
+docker tag java-docker-userprac8 user/java-docker-userprac8
+docker push user/java-docker-userprac8
+kubectl apply -f deployment.yaml
+kubectl get pods
+kubectl logs <pod-name>
+
+
+
+
+
+
+--- Common Errors ---
+ERROR: ErrImagePull / ImagePullBackOff
+FIX: Image name in deployment.yaml must exactly match what was pushed to Docker Hub
+FIX: Make sure docker push completed successfully before applying yaml
+
+
+ERROR: CrashLoopBackOff (for Scanner apps)
+FIX: Add stdin: true and tty: true under the container in deployment.yaml
+
+
+ERROR: pods "name" not found
+FIX: Typo in pod name. Copy exact name from kubectl get pods output.
+
+
+
+
+================================================================
+PRACTICAL 9 - Kubernetes: Deploy Python App
+================================================================
+
+
+CHECKLIST:
+[ ] Create app.py
+[ ] Create Dockerfile
+[ ] Build image
+[ ] Login to Docker Hub
+[ ] Tag and push image
+[ ] Create deployment.yaml
+[ ] Apply deployment
+[ ] Verify pods running
+[ ] Exec into pod and run app
+
+
+--- app.py ---
+name = input("Enter your name: ")
+print("Name of user is:", name)
+
+
+--- Dockerfile ---
+FROM python:3.11-slim
+WORKDIR /app
+COPY app.py .
+CMD ["python", "app.py"]
+
+
+--- deployment.yaml ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pythonfirst-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pythonfirst
+  template:
+    metadata:
+      labels:
+        app: pythonfirst
+    spec:
+      containers:
+        - name: pythonfirst
+          image: user/python-docker-userprac9
+          stdin: true
+          tty: true
+
+
+--- Commands ---
+docker build -t python-docker-userprac9 .
+docker login
+docker tag python-docker-userprac9 user/python-docker-userprac9
+docker push user/python-docker-userprac9
+kubectl apply -f deployment.yaml
+kubectl get pods
+kubectl logs <pod-name>
+
+
+--- Common Errors ---
+ERROR: ErrImagePull / ImagePullBackOff
+FIX: Run docker login first, then tag and push again
+
+
+ERROR: CrashLoopBackOff
+FIX: Add stdin: true and tty: true in deployment.yaml
+
+
+
+
+================================================================
+PORT REFERENCE
+================================================================
+
+
+Practical 5  → localhost:3000  (Node.js Express)
+Practical 6  → localhost:8000  (Swarm service web)
+Practical 6  → localhost:8001  (Swarm service web2)
+Practical 8  → no browser needed (kubectl logs)
+Practical 9  → no browser needed (kubectl logs)
+
+
+
+
+================================================================
+QUICK COMMAND REFERENCE
+================================================================
+
+
+--- Git ---
+git init
+git add .
+git commit -m "msg"
+git push -u origin master
+git pull
+git branch <name>
+git checkout <name>
+git merge <name>
+
+
+--- Docker ---
+docker build -t <image-name> .
+docker run -it <image-name>
+docker tag <image> user/<image>
+docker push user/<image>
+docker login
+docker network create --driver bridge <network-name>
+docker network ls
+docker network inspect <network-name>
+docker run -it --network <network-name> <image-name>
+docker compose up --build -d
+docker compose down
+docker swarm init
+docker swarm leave --force
+docker service create --name <n> --replicas <r> --publish published=<hp>,target=<cp> <image>
+docker service ls
+docker service ps <name>
+docker service rm <name>
+docker node ls
+
+
+--- Kubernetes ---
+kubectl apply -f deployment.yaml
+kubectl get pods
+kubectl logs <pod-name>
+kubectl exec -it <pod-name> -- python app.py
+kubectl delete deployment <name>
+kubectl describe pod <pod-name>
+
+
+
+
+================================================================
+END
+================================================================
